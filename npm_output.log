@@ -58,3 +58,6 @@ npm http fetch GET https://registry.npmjs.org/clsx attempt 2 failed with ENOTFOU
 npm http fetch GET https://registry.npmjs.org/clsx attempt 3 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 1 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact attempt 2 failed with ENOTFOUND
