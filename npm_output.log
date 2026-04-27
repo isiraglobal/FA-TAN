@@ -61,3 +61,12 @@ npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 2 failed wi
 npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 3 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/@types%2freact attempt 1 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/@types%2freact attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact-dom attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact-dom attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@types%2freact-dom attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/autoprefixer attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/autoprefixer attempt 2 failed with ENOTFOUND
