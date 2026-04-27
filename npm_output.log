@@ -1,0 +1,60 @@
+npm verbose cli /usr/local/bin/node /usr/local/bin/npm
+npm info using npm@10.9.3
+npm info using node@v22.18.0
+npm verbose config error loading user config Error: EPERM: operation not permitted, open '/Users/lakshitsinghvi/.npmrc'
+npm verbose config     at async open (node:internal/fs/promises:639:25)
+npm verbose config     at async readFile (node:internal/fs/promises:1243:14)
+npm verbose config     at async #loadFile (/usr/local/lib/node_modules/npm/node_modules/@npmcli/config/lib/index.js:589:5)
+npm verbose config     at async Config.load (/usr/local/lib/node_modules/npm/node_modules/@npmcli/config/lib/index.js:250:5)
+npm verbose config     at async #load (/usr/local/lib/node_modules/npm/lib/npm.js:98:5)
+npm verbose config     at async Npm.load (/usr/local/lib/node_modules/npm/lib/npm.js:80:14)
+npm verbose config     at async module.exports (/usr/local/lib/node_modules/npm/lib/cli/entry.js:42:37) {
+npm verbose config   errno: -1,
+npm verbose config   code: 'EPERM',
+npm verbose config   syscall: 'open',
+npm verbose config   path: '/Users/lakshitsinghvi/.npmrc'
+npm verbose config }
+npm verbose cache could not create cache: Error: EPERM: operation not permitted, mkdir '/Users/lakshitsinghvi/.npm'
+npm verbose logfile could not create logs-dir: Error: EPERM: operation not permitted, mkdir '/Users/lakshitsinghvi/.npm/_logs'
+npm verbose title npm install
+npm verbose argv "install" "--loglevel" "verbose"
+npm verbose logfile logs-max:10 dir:/Users/lakshitsinghvi/.npm/_logs/2026-04-27T18_55_37_539Z-
+npm verbose logfile could not be created: Error: EPERM: operation not permitted, open '/Users/lakshitsinghvi/.npm/_logs/2026-04-27T18_55_37_539Z-debug-0.log'
+npm verbose logfile no logfile created
+npm verbose logfile error cleaning log files Error: EPERM: operation not permitted, scandir '/Users/lakshitsinghvi/.npm/_logs'
+npm verbose logfile     at async Object.readdir (node:internal/fs/promises:955:18)
+npm verbose logfile     at async #cleanLogs (/usr/local/lib/node_modules/npm/lib/utils/log-file.js:208:19) {
+npm verbose logfile   errno: -1,
+npm verbose logfile   code: 'EPERM',
+npm verbose logfile   syscall: 'scandir',
+npm verbose logfile   path: '/Users/lakshitsinghvi/.npm/_logs'
+npm verbose logfile }
+npm http fetch GET https://registry.npmjs.org/npm attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/npm attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/npm attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-dom attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-dom attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-dom attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/framer-motion attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/framer-motion attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/framer-motion attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/three attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/three attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/three attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-scroll attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-scroll attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-scroll attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-intersection-observer attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-intersection-observer attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/react-intersection-observer attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/lucide-react attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/lucide-react attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/lucide-react attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/clsx attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/clsx attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/clsx attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/tailwind-merge attempt 2 failed with ENOTFOUND
