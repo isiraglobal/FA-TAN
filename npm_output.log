@@ -70,3 +70,6 @@ npm http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 2 f
 npm http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 3 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/autoprefixer attempt 1 failed with ENOTFOUND
 npm http fetch GET https://registry.npmjs.org/autoprefixer attempt 2 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/autoprefixer attempt 3 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/postcss attempt 1 failed with ENOTFOUND
+npm http fetch GET https://registry.npmjs.org/postcss attempt 2 failed with ENOTFOUND

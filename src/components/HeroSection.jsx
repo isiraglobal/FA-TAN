@@ -1,62 +1,70 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowDown, ShieldCheck, Lock, Package } from 'lucide-react';
 
-const HeroSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.2,
-  });
+export default function HeroSection() {
+  const logoRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (logoRef.current) logoRef.current.style.transform = `translateY(${scrollY * 0.2}px)`;
+      
+      // Hide scroll indicator after scrolling
+      if (scrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative z-20 px-4 py-20" ref={ref}>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8 }}
-        className="text-center max-w-5xl mx-auto backdrop-blur-md bg-white/5 p-8 md:p-12 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,255,255,0.1)] relative overflow-hidden"
-      >
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-cyan/10 to-transparent pointer-events-none" />
-        
-        <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 text-white drop-shadow-lg relative z-10">
-          The Foreign Affairs Spotlight
-        </h2>
-        <p className="text-xl md:text-3xl text-sky-light mb-10 font-light relative z-10">
-          Shop Local. Meet Creators. Experience Something Special.
+    <section className="h-[150vh] relative w-full flex flex-col items-center pt-[20vh] z-20">
+      
+      {/* 3D Cloud Text Logo */}
+      <div ref={logoRef} className="flex flex-col items-center">
+        <h1 className="cloud-logo text-center relative z-10 leading-tight">marketpeace</h1>
+        <p className="mt-4 text-xl tracking-[0.2em] font-light text-white uppercase text-center max-w-2xl px-4 drop-shadow-md">
+          Shop. Connect. Make Peace.
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-          <button className="group relative px-8 py-4 bg-brand-cyan text-brand-navy font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.6)]">
-            <span className="relative z-10">Get Free Ticket</span>
-            <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-          </button>
-          
-          <button className="group relative px-8 py-4 bg-transparent border-2 border-brand-yellow text-brand-yellow font-bold rounded-full text-lg overflow-hidden transition-all hover:bg-brand-yellow hover:text-brand-navy hover:scale-105 hover:shadow-[0_0_20px_rgba(255,215,0,0.6)]">
-            <span className="relative z-10">Become a Vendor</span>
-          </button>
-        </div>
+        <button className="mt-12 glass-button rounded-full px-12 py-4 flex items-center gap-3 text-lg font-medium tracking-wider hover:scale-105 active:scale-95">
+          <ArrowDown size={20} className="animate-bounce" />
+          EXPLORE
+        </button>
+      </div>
 
-        <div className="mt-16 p-8 bg-brand-navy/60 rounded-2xl border border-white/10 inline-block text-left relative z-10 w-full md:w-auto">
-          <div className="flex flex-col sm:flex-row gap-8 justify-between items-center text-center sm:text-left">
-            <div>
-              <p className="text-sm text-sky-mid uppercase tracking-widest mb-2 font-bold">Next Event</p>
-              <p className="text-xl md:text-2xl font-bold text-white">Aug 24, 2024</p>
-            </div>
-            <div className="hidden sm:block w-px h-16 bg-white/20"></div>
-            <div>
-              <p className="text-sm text-sky-mid uppercase tracking-widest mb-2 font-bold">Location</p>
-              <p className="text-xl md:text-2xl font-bold text-white">NYC Rooftop Studio</p>
-            </div>
-            <div className="hidden sm:block w-px h-16 bg-white/20"></div>
-            <div>
-              <p className="text-sm text-sky-mid uppercase tracking-widest mb-2 font-bold">Time</p>
-              <p className="text-xl md:text-2xl font-bold text-white">12PM - 6PM</p>
-            </div>
-          </div>
+      {/* Scroll Indicator */}
+      <div className={`absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <p className="text-white/60 text-sm uppercase tracking-widest">Scroll to explore</p>
+        <div className="flex gap-1">
+          <div className="w-1 h-8 bg-white/40 rounded-full animate-pulse"></div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+
+      {/* Trust Cards */}
+      <div className="absolute top-[80vh] w-full max-w-5xl px-6 flex flex-col md:flex-row gap-8 justify-center">
+        <div className="liquid-glass p-8 w-full md:w-[280px] h-[140px] flex flex-col justify-center items-center text-center group cursor-pointer hover:scale-105">
+          <ShieldCheck className="w-8 h-8 mb-2 group-hover:rotate-12 transition-transform duration-300" />
+          <h3 className="font-medium text-lg">Trusted Sellers</h3>
+          <p className="text-xs text-white/50 mt-1">Verified & reliable</p>
+        </div>
+        <div className="liquid-glass p-8 w-full md:w-[280px] h-[140px] flex flex-col justify-center items-center text-center group cursor-pointer hover:scale-105">
+          <Lock className="w-8 h-8 mb-2 group-hover:rotate-12 transition-transform duration-300" />
+          <h3 className="font-medium text-lg">Secure Payments</h3>
+          <p className="text-xs text-white/50 mt-1">Safe & protected</p>
+        </div>
+        <div className="liquid-glass p-8 w-full md:w-[280px] h-[140px] flex flex-col justify-center items-center text-center group cursor-pointer hover:scale-105">
+          <Package className="w-8 h-8 mb-2 group-hover:rotate-12 transition-transform duration-300" />
+          <h3 className="font-medium text-lg">Fast Delivery</h3>
+          <p className="text-xs text-white/50 mt-1">Quick & dependable</p>
+        </div>
+      </div>
+      
+    </section>
   );
-};
-
-export default HeroSection;
+}

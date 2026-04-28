@@ -3,28 +3,137 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Sky Gradient (shifts as you descend) */
+    --sky-top: #87CFFF;
+    --sky-mid: #B8E3FF;
+    --sky-bottom: #EAF6FF;
+    --horizon-warm: #FFE8D6;
+
+    /* Glass UI */
+    --glass-white: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-glow: rgba(255, 255, 255, 0.4);
+
+    /* Accents */
+    --sunlight-glow: rgba(255, 248, 220, 0.6);
+    --text-primary: rgba(26, 26, 46, 0.9);
+    --text-light: rgba(255, 255, 255, 0.95);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-brand-navy text-white font-body m-0 p-0 overflow-x-hidden;
+    font-family: 'Inter', 'Poppins', -apple-system, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
   }
 }
 
-.cloud-layer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100vh;
-  pointer-events: none;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  background: radial-gradient(circle at center, rgba(248, 248, 255, 0.4) 0%, rgba(248, 248, 255, 0) 70%);
-}
+@layer components {
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    box-shadow: 
+      0 8px 32px rgba(31, 38, 135, 0.12),
+      inset 0 1px 2px rgba(255, 255, 255, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
 
-.cloud-layer.active { opacity: 1; }
+  .liquid-glass:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 12px 48px rgba(31, 38, 135, 0.2),
+      0 0 20px rgba(255, 255, 255, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px);
+  }
 
-.liquid-effect {
-  filter: url(#liquid-filter);
-}
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 
-.glow-text {
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5);
+  .glass-button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-3px);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(255, 255, 255, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+
+  .cloud-logo {
+    font-size: 120px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 
+      0 2px 10px rgba(255,255,255,0.8),
+      0 0 80px rgba(255,255,255,0.5),
+      inset 0 -20px 40px rgba(0,0,0,0.1);
+    background: linear-gradient(180deg, #ffffff 0%, #e0f0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  @keyframes pulse-opacity {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes float-hover {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @media (max-width: 1024px) {
+    .cloud-logo { font-size: 80px; }
+  }
+
+  @media (max-width: 768px) {
+    .cloud-logo { font-size: 48px; }
+    .liquid-glass {
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
