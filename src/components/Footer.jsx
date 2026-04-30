@@ -1,12 +1,12 @@
-import { Instagram, Mail, Twitter } from 'lucide-react';
+import { Instagram, Mail, Twitter, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="relative w-full flex flex-col items-center z-10 overflow-hidden pt-20">
+    <footer className="relative w-full flex flex-col items-center z-30 overflow-hidden pt-20 mt-20">
       
       {/* Structured Glass Footer - Frosted Glass Vibe */}
-      <div className="bg-white/5 backdrop-blur-[80px] border-t border-white/10 p-8 md:p-20 w-full flex flex-col shadow-[0_-10px_50px_rgba(255,255,255,0.05)] relative z-10">
+      <div className="bg-black/40 backdrop-blur-[100px] border-t border-white/10 p-8 md:p-20 w-full flex flex-col shadow-[0_-10px_50px_rgba(0,0,0,0.5)] relative z-30">
         <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
           
           <div className="col-span-1 md:col-span-2">
@@ -37,9 +37,9 @@ export default function Footer() {
 
           <div className="flex flex-col gap-3 md:gap-4">
             <h5 className="text-white font-bold tracking-widest uppercase mb-1 md:mb-2 text-sm">Legal</h5>
-            <Link to="/legal" className="text-white/60 hover:text-white transition-colors text-sm font-light">Privacy Policy</Link>
-            <Link to="/legal" className="text-white/60 hover:text-white transition-colors text-sm font-light">Terms of Service</Link>
-            <Link to="/legal" className="text-white/60 hover:text-white transition-colors text-sm font-light">Vendor Agreement</Link>
+            <Link to="/legal#privacy" className="text-white/60 hover:text-white transition-colors text-sm font-light">Privacy Policy</Link>
+            <Link to="/legal#terms" className="text-white/60 hover:text-white transition-colors text-sm font-light">Terms of Service</Link>
+            <Link to="/contact" className="text-white/60 hover:text-white transition-colors text-sm font-light">Contact Us</Link>
           </div>
 
         </div>

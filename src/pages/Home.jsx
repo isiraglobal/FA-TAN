@@ -49,16 +49,22 @@ export default function Home() {
   const ySection3 = useTransform(smoothProgress, [0.5, 0.8], ['20%', '0%']);
   const scaleSection3 = useTransform(smoothProgress, [0.5, 0.8], [0.85, 1]);
 
+  const bgOverlayOpacity = useTransform(smoothProgress, [0, 0.15], [0, 0.6]);
+
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full h-[500vh]"
+      className="relative w-full h-[500vh] bg-[#061530]"
     >
+      <motion.div 
+        className="fixed inset-0 z-[1] pointer-events-none bg-black/60"
+        style={{ opacity: bgOverlayOpacity }}
+      />
 
       {/* Main Hero Content */}
       <div className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pt-10 px-4">
         <motion.div 
-          className="flex flex-wrap items-center justify-center mb-4 md:mb-8 max-w-[95vw]"
+          className="flex flex-nowrap items-center justify-center mb-4 md:mb-8 w-full max-w-full overflow-visible px-4"
           style={{ y: yText, opacity: opacityText }}
         >
           {letters.map((l, i) => (
@@ -67,16 +73,14 @@ export default function Home() {
               initial={{ opacity: 0, y: 150, scale: 0.5, filter: 'blur(20px)' }}
               animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
               transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.5 + i * 0.05 }}
-              className="relative w-[12vw] sm:w-[8vw] max-w-[70px] h-[18vw] sm:h-[12vw] max-h-[100px] flex items-center justify-center z-20 will-change-transform m-[-1vw]"
+              className="relative w-[8.5vw] sm:w-[8vw] max-w-[80px] h-[12vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.5vw]"
               style={{ zIndex: letters.length - i }}
             >
               <motion.img 
                 src={l.src} 
                 alt={l.char} 
                 loading="eager"
-                className="w-full h-full object-contain drop-shadow-xl will-change-transform"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: 0.5 + i * 0.2 }}
+                className="w-full h-full object-contain drop-shadow-2xl will-change-transform"
               />
             </motion.div>
           ))}
@@ -163,9 +167,9 @@ export default function Home() {
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#0690d4]/20 rounded-full blur-[100px] pointer-events-none"></div>
                 <h4 className="text-3xl md:text-4xl text-white font-medium mb-4 tracking-tight">Secure Your Spot</h4>
                 <p className="text-white/40 mb-8 md:mb-10 font-light leading-relaxed text-base md:text-lg">Only 10 spots per event. First come, first served. Secure yours today with a deposit.</p>
-                <Link to="/vendors">
+                <Link to="/contact">
                   <button className="w-full py-5 md:py-6 bg-white text-[#061530] font-bold rounded-2xl tracking-[0.2em] text-[10px] md:text-xs uppercase hover:bg-white/90 transition-all shadow-2xl cursor-pointer hover:-translate-y-1 active:translate-y-0">
-                    BECOME A VENDOR
+                    INQUIRE NOW
                   </button>
                 </Link>
               </div>

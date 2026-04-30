@@ -14,6 +14,7 @@ import Venues from './pages/Venues';
 import Cities from './pages/Cities';
 import Legal from './pages/Legal';
 import Success from './pages/Success';
+import Contact from './pages/Contact';
 
 function ScrollSetup() {
   const { pathname } = useLocation();
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/cities" element={<Cities />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
           <Footer />
         </div>
