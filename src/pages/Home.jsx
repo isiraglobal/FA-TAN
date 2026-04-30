@@ -282,6 +282,3 @@ function Card({ icon, title, subtitle }) {
     </div>
   );
 }
-    </div>
-  );
-}
