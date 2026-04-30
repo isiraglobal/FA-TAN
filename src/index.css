@@ -23,6 +23,7 @@
 
   html {
     scroll-behavior: smooth;
+    cursor: none;
   }
 
   body {
@@ -33,6 +34,11 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    cursor: none;
+  }
+  
+  a, button, input, select, textarea {
+    cursor: none !important;
   }
 }
 
