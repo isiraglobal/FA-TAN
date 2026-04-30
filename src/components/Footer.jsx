@@ -5,9 +5,13 @@ export default function Footer() {
   return (
     <footer className="relative w-full flex flex-col items-center z-30 overflow-hidden pt-20 mt-20">
       
-      {/* Structured Glass Footer - Frosted Glass Vibe */}
-      <div className="bg-black/40 backdrop-blur-[100px] border-t border-white/10 p-8 md:p-20 w-full flex flex-col shadow-[0_-10px_50px_rgba(0,0,0,0.5)] relative z-30">
-        <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
+      {/* Liquid Glass Footer */}
+      <div className="bg-white/[0.03] backdrop-blur-[120px] border-t border-white/10 p-8 md:p-20 w-full flex flex-col shadow-[0_-20px_80px_rgba(0,0,0,0.3)] relative z-30 overflow-hidden">
+        {/* Animated Background Depth Elements */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0077b6]/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none translate-y-1/2"></div>
+
+        <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16 relative z-10">
           
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-2xl md:text-4xl font-bold mb-4 tracking-[0.2em] text-white">MARKETPEACE</h2>
