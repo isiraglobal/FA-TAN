@@ -34,7 +34,7 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const yText = useTransform(smoothProgress, [0, 0.2], ['0px', '-200px']);
+  const yText = useTransform(smoothProgress, [0, 0.2], ['0px', '200px']);
   const opacityText = useTransform(smoothProgress, [0, 0.15], [1, 0]);
   const scaleText = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
   
@@ -128,7 +128,7 @@ export default function Home() {
       <div className="relative w-full z-20 pointer-events-none flex flex-col">
         
         {/* Interactive Sections below clouds */}
-        <div className="relative w-full flex flex-col items-center py-20 md:py-40 px-6 md:px-12 gap-24 md:gap-40 pointer-events-auto">
+        <div className="relative w-full flex flex-col items-center py-20 md:py-40 px-6 md:px-12 gap-24 md:gap-40 pointer-events-auto mt-[20vh]">
           
           <div className="w-full overflow-hidden bg-white/5 backdrop-blur-3xl border-y border-white/10 py-6 md:py-10 flex relative shadow-2xl">
             <motion.div 
