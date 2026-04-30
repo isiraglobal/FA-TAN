@@ -49,7 +49,7 @@ export default function Home() {
   const ySection3 = useTransform(smoothProgress, [0.5, 0.8], ['20%', '0%']);
   const scaleSection3 = useTransform(smoothProgress, [0.5, 0.8], [0.85, 1]);
 
-  const bgOverlayOpacity = useTransform(smoothProgress, [0, 0.15], [0, 0.6]);
+  const bgOverlayOpacity = useTransform(smoothProgress, [0, 0.2], [0, 0.4]);
 
   return (
     <div 
@@ -57,7 +57,7 @@ export default function Home() {
       className="relative w-full h-[500vh] bg-[#061530]"
     >
       <motion.div 
-        className="fixed inset-0 z-[1] pointer-events-none bg-black/60"
+        className="fixed inset-0 z-[1] pointer-events-none bg-[#061530]/40 backdrop-brightness-[0.8]"
         style={{ opacity: bgOverlayOpacity }}
       />
 
