@@ -33,9 +33,13 @@ export default function Venues() {
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         className="max-w-5xl w-full flex flex-col items-center text-center mb-16 md:mb-24"
       >
-        <span className="text-[#0690d4] tracking-[0.4em] text-[10px] font-bold uppercase mb-4 opacity-80">Venue Partnerships</span>
-        <h1 className="text-3xl md:text-7xl font-medium tracking-tight mb-6 md:mb-8 max-w-[90vw]">We Bring The Crowd. You Get The Credit.</h1>
-        <p className="text-white/60 text-base md:text-xl leading-relaxed max-w-3xl font-light px-4">
+        <span className="text-white bg-[#0690d4] px-4 py-1.5 rounded-full tracking-[0.3em] text-[10px] md:text-xs font-black uppercase mb-8 shadow-[0_0_20px_rgba(6,144,212,0.4)]">
+          Venue Partnerships
+        </span>
+        <h1 className="text-4xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
+          Host a <span className="text-[#0690d4] not-italic">Market</span>,<br/>Get Noticed
+        </h1>
+        <p className="text-white/80 text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
           Host a Foreign Affairs Market Pop-Up. We fill it with 150+ eager shoppers and provide professional content.
         </p>
       </motion.div>
