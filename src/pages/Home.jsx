@@ -120,7 +120,7 @@ export default function Home() {
       </div>
 
       {/* Content Placed Down the Scroll */}
-      <div className="absolute top-[100vh] left-0 w-full z-20 pointer-events-none flex flex-col">
+      <div className="relative w-full z-20 pointer-events-none flex flex-col">
         
         {/* Interactive Sections below clouds */}
         <div className="relative w-full flex flex-col items-center py-20 md:py-40 px-6 md:px-12 gap-24 md:gap-40 pointer-events-auto">
