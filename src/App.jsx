@@ -16,32 +16,39 @@ import Legal from './pages/Legal';
 import Success from './pages/Success';
 import Contact from './pages/Contact';
 
+// Global scroll manager to handle Lenis and Scroll-to-Top
+let lenisInstance = null;
+
 function ScrollSetup() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Standard browser scroll reset
-    window.scrollTo(0, 0);
-    
-    // Lenis smooth scroll setup
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      smooth: true,
-    });
+    // 1. Initialize Lenis only once
+    if (!lenisInstance) {
+      lenisInstance = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        smooth: true,
+      });
 
-    function raf(time) {
-      lenis.raf(time);
+      function raf(time) {
+        lenisInstance?.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
     }
-    
-    // Immediate scroll reset for Lenis
-    lenis.scrollTo(0, { immediate: true });
-    
-    requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    // 2. On route change, aggressively reset scroll
+    // Delay slightly to ensure DOM is ready
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, { immediate: true });
+      }
+    }, 10);
+
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return null;
