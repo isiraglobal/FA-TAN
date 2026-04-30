@@ -73,7 +73,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 150, scale: 0.5, filter: 'blur(20px)' }}
               animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
               transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.5 + i * 0.05 }}
-              className="relative w-[8.5vw] sm:w-[8vw] max-w-[80px] h-[12vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.5vw]"
+              className="relative w-[7.5vw] sm:w-[8vw] max-w-[80px] h-[10vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.2vw]"
               style={{ zIndex: letters.length - i }}
             >
               <motion.img 
@@ -243,8 +243,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-24 shadow-2xl">
-              <h3 className="text-xl md:text-3xl font-medium mb-10 md:mb-16 text-center uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-80">Operational FAQ</h3>
+            <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-24 shadow-2xl w-full">
+              <h3 className="text-xl md:text-3xl font-medium mb-10 md:mb-16 text-center uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-80 px-2">Operational FAQ</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-10 md:gap-y-12">
                 <div className="flex flex-col gap-3">

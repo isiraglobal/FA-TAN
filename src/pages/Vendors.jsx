@@ -79,10 +79,10 @@ export default function Vendors() {
         <span className="text-white bg-[#0077b6] px-4 py-1.5 rounded-full tracking-[0.3em] text-[10px] md:text-xs font-black uppercase mb-8 shadow-[0_0_20px_rgba(0,119,182,0.4)]">
           Vendor Opportunities
         </span>
-        <h1 className="text-4xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
-          Creators <span className="text-[#0077b6] not-italic">Connect</span>,<br/>Shine, and Sell
+        <h1 className="text-3xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic break-words">
+          Creators <span className="text-[#0077b6] not-italic">Connect</span>,<br className="hidden sm:block"/>Shine, and Sell
         </h1>
-        <p className="text-white/80 text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
+        <p className="text-white/80 text-base md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
           You're not just renting a booth — you're investing in visibility, community, and sales. Join the Foreign Affairs Market Pop-Up.
         </p>
       </motion.div>
@@ -140,15 +140,15 @@ export default function Vendors() {
   );
 }
 
-function Feature({ icon, title, desc }) {
+function VendorFeature({ icon, title, desc, highlighted = false }) {
   return (
-    <div className="flex flex-col gap-4 p-6 md:p-8 bg-white/5 rounded-[2rem] border border-white/5 hover:border-white/10 transition-all group backdrop-blur-sm">
-      <div className="w-10 md:w-12 h-10 md:h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#0690d4] group-hover:scale-110 transition-transform duration-500">
+    <div className={`flex flex-col gap-4 p-6 md:p-10 rounded-[2.5rem] border transition-all backdrop-blur-sm ${highlighted ? 'bg-[#0077b6]/10 border-[#0077b6]/30' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
+      <div className={`w-10 md:w-14 h-10 md:h-14 rounded-2xl flex items-center justify-center ${highlighted ? 'bg-[#0077b6]/20 text-[#0077b6]' : 'bg-white/5 text-[#0077b6]'}`}>
         {icon}
       </div>
       <div>
-        <h4 className="text-white font-medium text-base md:text-lg mb-1 md:mb-2 tracking-tight">{title}</h4>
-        <p className="text-white/40 text-xs md:text-sm leading-relaxed font-light">{desc}</p>
+        <h4 className="text-white font-medium text-lg md:text-2xl mb-1 md:mb-3 tracking-tight break-words">{title}</h4>
+        <p className="text-white/40 text-sm md:text-lg leading-relaxed font-light break-words">{desc}</p>
       </div>
     </div>
   );
