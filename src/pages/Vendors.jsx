@@ -80,7 +80,7 @@ export default function Vendors() {
           Vendor Opportunities
         </span>
         <h1 className="text-3xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic break-words">
-          Creators <span className="text-[#0077b6] not-italic">Connect</span>,<br className="hidden sm:block"/>Shine, and Sell
+          Creators <span className="not-italic text-white drop-shadow-[0_0_15px_rgba(0,119,182,0.8)] [text-shadow:2px_2px_0_#0077b6,-2px_-2px_0_#0077b6,2px_-2px_0_#0077b6,-2px_2px_0_#0077b6]">Connect</span>,<br className="hidden sm:block"/>Shine, and Sell
         </h1>
         <p className="text-white/80 text-base md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
           You're not just renting a booth — you're investing in visibility, community, and sales. Join the Foreign Affairs Market Pop-Up.

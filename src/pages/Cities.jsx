@@ -26,7 +26,7 @@ export default function Cities() {
           Multi-City Rollout
         </span>
         <h1 className="text-4xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
-          Nationwide <span className="text-[#0077b6] not-italic">Rollout</span>,<br/>Join Us
+          Nationwide <span className="not-italic text-white drop-shadow-[0_0_15px_rgba(0,119,182,0.8)] [text-shadow:2px_2px_0_#0077b6,-2px_-2px_0_#0077b6,2px_-2px_0_#0077b6,-2px_2px_0_#0077b6]">Rollout</span>,<br/>Join Us
         </h1>
         <p className="text-white/80 text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
           We are launching simultaneous pop-up events across the East Coast and beyond. Find your city, become a promoter, or apply to be a city lead.
