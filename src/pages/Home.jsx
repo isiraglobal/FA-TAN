@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full h-[500vh] bg-[#061530]"
+      className="relative w-full h-[500vh]"
     >
       <motion.div 
         className="fixed inset-0 z-[1] pointer-events-none bg-[#061530]/40 backdrop-brightness-[0.8]"
