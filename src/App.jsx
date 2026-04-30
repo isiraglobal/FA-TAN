@@ -16,9 +16,13 @@ import Legal from './pages/Legal';
 import Success from './pages/Success';
 
 function ScrollSetup() {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
+    // Standard browser scroll reset
+    window.scrollTo(0, 0);
+    
+    // Lenis smooth scroll setup
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -30,10 +34,14 @@ function ScrollSetup() {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
+    
+    // Immediate scroll reset for Lenis
+    lenis.scrollTo(0, { immediate: true });
+    
     requestAnimationFrame(raf);
 
     return () => lenis.destroy();
-  }, [location.pathname]);
+  }, [pathname]);
 
   return null;
 }
