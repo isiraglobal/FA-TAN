@@ -110,7 +110,7 @@ function NavLink({ to, children, current }) {
   return (
     <Link to={to} className={`relative group transition-colors ${current ? 'text-white' : 'text-white/60 hover:text-white'}`}>
       {children}
-      <span className={`absolute -bottom-2 left-0 w-full h-[1.5px] bg-[#0690d4] transform origin-left transition-transform duration-500 ${current ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+      <span className={`absolute -bottom-2 left-0 w-full h-[1.5px] bg-[#0077b6] transform origin-left transition-transform duration-500 ${current ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
     </Link>
   );
 }

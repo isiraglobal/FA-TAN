@@ -34,8 +34,9 @@ export default function Home() {
     restDelta: 0.001
   });
 
-  const yText = useTransform(smoothProgress, [0, 0.2], ['0%', '150%']);
+  const yText = useTransform(smoothProgress, [0, 0.2], ['0px', '-200px']);
   const opacityText = useTransform(smoothProgress, [0, 0.15], [1, 0]);
+  const scaleText = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
   
   const yCloudSlow = useTransform(smoothProgress, [0, 1], ['0%', '-50%']);
   const yCloudFast = useTransform(smoothProgress, [0, 1], ['0%', '-150%']);
@@ -65,22 +66,26 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pt-10 px-4">
         <motion.div 
           className="flex flex-nowrap items-center justify-center mb-4 md:mb-8 w-full max-w-full overflow-visible px-4"
-          style={{ y: yText, opacity: opacityText }}
+          style={{ y: yText, opacity: opacityText, scale: scaleText }}
         >
           {letters.map((l, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 150, scale: 0.5, filter: 'blur(20px)' }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-              transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.5 + i * 0.05 }}
-              className="relative w-[7.5vw] sm:w-[8vw] max-w-[80px] h-[10vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.2vw]"
+              initial={{ opacity: 0, z: -1000, scale: 3, filter: 'blur(30px)' }}
+              animate={{ opacity: 1, z: 0, scale: 1, filter: 'blur(0px)' }}
+              transition={{ 
+                duration: 1.5, 
+                ease: [0.16, 1, 0.3, 1], 
+                delay: 0.5 + i * 0.03 
+              }}
+              className="relative w-[7.5vw] sm:w-[8vw] max-w-[80px] h-[10vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.2vw] perspective-[1000px]"
               style={{ zIndex: letters.length - i }}
             >
               <motion.img 
                 src={l.src} 
                 alt={l.char} 
                 loading="eager"
-                className="w-full h-full object-contain drop-shadow-2xl will-change-transform"
+                className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] will-change-transform"
               />
             </motion.div>
           ))}
