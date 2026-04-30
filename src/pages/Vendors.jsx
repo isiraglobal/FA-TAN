@@ -91,15 +91,15 @@ export default function Vendors() {
         <div className="lg:col-span-7 flex flex-col gap-8 md:gap-10">
           <div className="flex flex-col gap-4 text-center lg:text-left">
             <h2 className="text-2xl md:text-5xl font-medium tracking-tight text-white leading-tight">Your Investment: $150 Booth Fee</h2>
-            <div className="h-1 w-20 bg-[#0690d4] rounded-full mx-auto lg:mx-0"></div>
+            <div className="h-1 w-20 bg-[#0077b6] rounded-full mx-auto lg:mx-0"></div>
             <p className="text-white/50 text-base md:text-lg font-light mt-2 italic">Only $75 Deposit Due Today to Secure Your Spot.</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4">
-            <Feature icon={<Zap />} title="Digital Exposure" desc="Thousands of social media engagements pre and post event." />
-            <Feature icon={<Users />} title="A Crowd of 150-300" desc="Targeted local creatives, influencers, and supporters." />
-            <Feature icon={<Camera />} title="Professional Content" desc="5-10 high-res photos and 1-2 short video clips." />
-            <Feature icon={<Package />} title="Custom Promo Assets" desc="Personal promo flyer and 10 free guest tickets." />
+            <VendorFeature icon={<Zap />} title="Digital Exposure" desc="Thousands of social media engagements pre and post event." />
+            <VendorFeature icon={<Users />} title="A Crowd of 150-300" desc="Targeted local creatives, influencers, and supporters." />
+            <VendorFeature icon={<Camera />} title="Professional Content" desc="5-10 high-res photos and 1-2 short video clips." />
+            <VendorFeature icon={<Package />} title="Custom Promo Assets" desc="Personal promo flyer and 10 free guest tickets." />
           </div>
         </div>
 
@@ -115,7 +115,7 @@ export default function Vendors() {
             </div>
             <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email Address" />
             <Input name="instagram" value={formData.instagram} onChange={handleChange} placeholder="Instagram Handle" />
-            <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white/70 outline-none focus:border-[#0690d4] transition-all appearance-none backdrop-blur-md text-sm">
+            <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white/70 outline-none focus:border-[#0077b6] transition-all appearance-none backdrop-blur-md text-sm">
               <option value="" disabled className="bg-[#061530]">Preferred Payment Method</option>
               <option value="venmo" className="bg-[#061530]">Venmo</option>
               <option value="zelle" className="bg-[#061530]">Zelle</option>
@@ -159,7 +159,7 @@ function Input({ ...props }) {
     <input 
       {...props} 
       required 
-      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 md:py-4 text-white outline-none focus:border-[#0690d4] transition-all placeholder:text-white/20 font-light backdrop-blur-md text-sm" 
+      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 md:py-4 text-white outline-none focus:border-[#0077b6] transition-all placeholder:text-white/20 font-light backdrop-blur-md text-sm" 
     />
   );
 }
