@@ -37,9 +37,9 @@ export default function Navbar() {
         transition={{ duration: 0.35, ease: "easeInOut" }}
         className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6 flex items-center justify-between bg-[#061530]/60 backdrop-blur-3xl border-b border-white/5 shadow-2xl"
       >
-        <div className="flex items-center gap-6 sm:gap-10 md:gap-12">
-          <Link to="/" onClick={() => setIsOpen(false)} className="hover:scale-105 transition-transform">
-            <span className="text-lg sm:text-xl md:text-2xl font-black tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-white uppercase italic">MARKETPEACE</span>
+        <div className="flex items-center gap-3 sm:gap-10 md:gap-12">
+          <Link to="/" onClick={() => setIsOpen(false)} className="hover:scale-105 transition-transform shrink-0">
+            <span className="text-base sm:text-xl md:text-2xl font-black tracking-tighter sm:tracking-[0.2em] text-white uppercase italic">MARKETPEACE</span>
           </Link>
           <div className="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em] text-white">
             {navLinks.map((link) => (
@@ -50,7 +50,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 md:gap-6">
+        <div className="flex items-center gap-3 md:gap-6">
           <Link to="/vendors" className="hidden lg:block">
             <button className="px-6 py-2 bg-white text-[#061530] font-black rounded-lg tracking-[0.2em] text-[10px] uppercase hover:bg-[#0077b6] hover:text-white transition-all shadow-lg btn-glow">
               JOIN
@@ -60,20 +60,20 @@ export default function Navbar() {
             initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1.2 }}
-            className="relative"
+            className="relative shrink-0"
           >
             <div className="absolute inset-0 bg-[#0077b6]/20 blur-xl rounded-full animate-pulse" />
             <img 
               src="/assets/logo.png" 
               alt="MARKETPEACE Logo" 
-              className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 object-contain relative z-10 mix-blend-multiply brightness-125"
+              className="w-5 h-5 sm:w-8 sm:h-8 md:w-12 md:h-12 object-contain relative z-10 mix-blend-multiply brightness-125"
             />
           </motion.div>
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden w-10 h-10 flex items-center justify-center text-white relative z-[101]"
+            className="lg:hidden w-8 h-8 flex items-center justify-center text-white relative z-[101]"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </motion.nav>

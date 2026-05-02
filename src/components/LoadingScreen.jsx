@@ -61,9 +61,9 @@ export default function LoadingScreen() {
               transition={{ delay: 0.5, duration: 1 }}
               className="flex flex-col items-center"
             >
-              <h1 className="text-2xl md:text-4xl font-black tracking-[0.6em] text-white uppercase italic mb-2">MARKETPEACE</h1>
+              <h1 className="text-xl sm:text-2xl md:text-4xl font-black tracking-[0.3em] sm:tracking-[0.6em] text-white uppercase italic mb-2">MARKETPEACE</h1>
               <div className="h-[2px] w-12 bg-[#0077b6] rounded-full mb-4" />
-              <p className="text-[#0077b6] text-[10px] md:text-xs tracking-[0.4em] uppercase font-black animate-pulse">Initializing System...</p>
+              <p className="text-[#0077b6] text-[8px] sm:text-[10px] md:text-xs tracking-[0.3em] sm:tracking-[0.4em] uppercase font-black animate-pulse">Initializing System...</p>
             </motion.div>
           </div>
 

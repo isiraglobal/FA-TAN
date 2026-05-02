@@ -86,31 +86,29 @@ export default function Home() {
             style={{ opacity: opacityText, scale: scaleText, y: yText }}
           >
             <div className="flex flex-col items-center justify-center px-4 max-w-7xl w-full my-auto">
-              <motion.div
-                className="flex flex-nowrap items-center justify-center mb-6 md:mb-12 w-full"
-              >
-                {letters.map((l, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, z: -1000, scale: 3, filter: 'blur(30px)' }}
-                    animate={{ opacity: 1, z: 0, scale: 1, filter: 'blur(0px)' }}
-                    transition={{
-                      duration: 2.5,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.8 + i * 0.06
-                    }}
-                    className="relative w-[8vw] sm:w-[7vw] max-w-[65px] h-[10vw] sm:h-[11vw] max-h-[90px] flex items-center justify-center z-20 will-change-transform m-[-0.3vw] perspective-[1000px]"
-                    style={{ zIndex: letters.length - i }}
-                  >
-                    <motion.img
-                      src={l.src}
-                      alt={l.char}
-                      loading="lazy"
-                      className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
+                <div className="flex flex-nowrap items-center justify-center mb-4 md:mb-12 w-full px-2">
+                  {letters.map((l, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, z: -1000, scale: 3, filter: 'blur(30px)' }}
+                      animate={{ opacity: 1, z: 0, scale: 1, filter: 'blur(0px)' }}
+                      transition={{
+                        duration: 2.5,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: 0.8 + i * 0.06
+                      }}
+                      className="relative w-[7.2vw] sm:w-[7vw] max-w-[65px] h-[9vw] sm:h-[11vw] max-h-[90px] flex items-center justify-center z-20 will-change-transform m-[-0.5vw] perspective-[1000px]"
+                      style={{ zIndex: letters.length - i }}
+                    >
+                      <motion.img
+                        src={l.src}
+                        alt={l.char}
+                        loading="lazy"
+                        className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -118,14 +116,14 @@ export default function Home() {
                 transition={{ delay: 1.6, duration: 1.5 }}
                 className="mb-8 md:mb-12"
               >
-                <span className="text-[8px] sm:text-[10px] tracking-[0.4em] text-[#0077b6] font-black uppercase bg-[#0077b6]/10 px-4 py-2 rounded-full border border-[#0077b6]/20">The Infrastructure of Independence</span>
+                <span className="text-[7px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.4em] text-[#0077b6] font-black uppercase bg-[#0077b6]/10 px-4 py-2 rounded-full border border-[#0077b6]/20 inline-block whitespace-nowrap">The Infrastructure of Independence</span>
               </motion.div>
               
-              <h2 className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl tracking-[0.25em] font-black mb-8 md:mb-10 text-center uppercase italic leading-relaxed max-w-[90vw] sm:max-w-[80vw]">
+              <h2 className="text-white text-[10px] sm:text-lg md:text-2xl lg:text-3xl tracking-[0.1em] sm:tracking-[0.25em] font-black mb-8 md:mb-10 text-center uppercase italic leading-relaxed max-w-[95vw] sm:max-w-[80vw]">
                 "We found <span className="text-[#0077b6] not-italic">peace</span>, by having a <span className="text-white border-b-2 border-[#0077b6] not-italic">piece</span> of the market."
               </h2>
               
-              <p className="text-white/60 text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.15em] font-medium max-w-2xl mb-10 md:mb-16 text-center uppercase leading-relaxed">
+              <p className="text-white/60 text-[9px] sm:text-xs md:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.15em] font-medium max-w-[90vw] sm:max-w-2xl mb-10 md:mb-16 text-center uppercase leading-relaxed">
                 The vendor-event marketplace connecting small businesses, cool venues, and the communities that love them.
               </p>
 
@@ -226,7 +224,7 @@ export default function Home() {
                   <span className="text-[#0077b6] bg-[#0077b6]/10 px-3 py-1 rounded-full tracking-[0.2em] text-[8px] font-black uppercase inline-block border border-[#0077b6]/20 animate-pulse">Limited Slots Remaining</span>
                 </div>
                 <h3 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 md:mb-8 tracking-tighter uppercase italic leading-[0.95]">Your booth. Your crowd. <span className="not-italic text-stroke-blue">Your commission.</span></h3>
-                <p className="text-white/60 text-[10px] sm:text-base md:text-lg leading-relaxed font-medium mb-6 md:mb-12 max-w-2xl">
+                <p className="text-white/60 text-[9px] sm:text-base md:text-lg leading-relaxed font-medium mb-6 md:mb-12 max-w-[90vw]">
                   Choose the tier that fits your growth strategy. Every vendor gets access to our premium infrastructure. <span className="text-white">Secure your position today.</span>
                 </p>
                 
