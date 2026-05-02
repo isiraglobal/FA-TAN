@@ -8,7 +8,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { type, name, email, transactionID, amount } = req.body;
+    const { type, name, email, transactionID, amount, tier } = req.body;
+
+    if (!amount || amount <= 0) {
+      throw new Error('Invalid payment amount');
+    }
+
+    const productName = type === 'Vendor'
+      ? `MarketPeace Vendor Registration${tier ? ` - ${tier}` : ''}`
+      : `MarketPeace ${type} Registration`;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -17,8 +25,8 @@ export default async function handler(req, res) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: `MarketPeace ${type} Registration - ${name}`,
-              description: type === 'Vendor' ? 'Booth Deposit' : 'Event Ticket',
+              name: productName,
+              description: type === 'Vendor' ? 'Booth registration deposit' : 'Event access ticket',
             },
             unit_amount: amount * 100, // Stripe expects amounts in cents
           },
@@ -28,11 +36,12 @@ export default async function handler(req, res) {
       mode: 'payment',
       success_url: `${req.headers.origin}/success?transaction_id=${transactionID}&type=${type}`,
       cancel_url: `${req.headers.origin}/${type === 'Vendor' ? 'vendors' : 'attendees'}`,
-      customer_email: email,
+      ...(email ? { customer_email: email } : {}),
       client_reference_id: transactionID,
       metadata: {
         type,
-        transactionID
+        transactionID,
+        tier: tier || '',
       },
     });
 

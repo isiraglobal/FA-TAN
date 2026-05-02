@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Clouds, Cloud } from '@react-three/drei';
 import * as THREE from 'three';
@@ -118,13 +118,34 @@ const CameraController = () => {
 };
 
 export default function BackgroundClouds() {
+  const [showClouds, setShowClouds] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+    const hasReasonablePerformance = navigator.hardwareConcurrency
+      ? navigator.hardwareConcurrency >= 4
+      : true;
+
+    if (!prefersReducedMotion && isLargeScreen && hasReasonablePerformance) {
+      setShowClouds(true);
+    }
+  }, []);
+
   return (
-    <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundColor: "#0690d4", ...noiseOverlayStyle }}>
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={0.5} />
-        <CloudContainer />
-        <CameraController />
-      </Canvas>
+    <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundColor: '#0690d4', ...noiseOverlayStyle }}>
+      {showClouds && (
+        <Canvas
+          shadows={false}
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 5], fov: 75 }}
+          gl={{ antialias: false, powerPreference: 'high-performance' }}
+        >
+          <ambientLight intensity={0.5} />
+          <CloudContainer />
+          <CameraController />
+        </Canvas>
+      )}
     </div>
   );
 }
