@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, MapPin, Users, Zap, Ticket, Camera } from 'lucide-react';
+import { ArrowDown, MapPin, Users, Zap, Ticket, Camera, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const letters = [
@@ -21,6 +21,9 @@ const letters = [
 const cities = ["New York, NY", "Washington, D.C.", "Atlanta, GA", "Philadelphia, PA", "Miami, FL", "Boston, MA", "Dallas, TX"];
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "MARKETPEACE | Infrastructure of Independence";
+  }, []);
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -29,265 +32,520 @@ export default function Home() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
+    stiffness: 40,
     damping: 30,
     restDelta: 0.001
   });
 
-  const yText = useTransform(smoothProgress, [0, 0.2], ['0px', '200px']);
-  const opacityText = useTransform(smoothProgress, [0, 0.15], [1, 0]);
-  const scaleText = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
-  
-  const yCloudSlow = useTransform(smoothProgress, [0, 1], ['0%', '-50%']);
-  const yCloudFast = useTransform(smoothProgress, [0, 1], ['0%', '-150%']);
+  // Stages: 0 (Hero), 1 (About), 2 (How), 3 (Application)
+  // Total height 700vh.
+  // Stage 0: 0.0 to 0.2 (Hero)
+  // Stage 1: 0.2 to 0.45 (About)
+  // Stage 2: 0.45 to 0.7 (How it works)
+  // Stage 3: 0.7 to 1.0 (Vendor App)
 
-  const ySection1 = useTransform(smoothProgress, [0.1, 0.4], ['20%', '0%']);
-  const scaleSection1 = useTransform(smoothProgress, [0.1, 0.4], [0.85, 1]);
-  
-  const ySection2 = useTransform(smoothProgress, [0.3, 0.6], ['20%', '0%']);
-  const scaleSection2 = useTransform(smoothProgress, [0.3, 0.6], [0.85, 1]);
-  
-  const ySection3 = useTransform(smoothProgress, [0.5, 0.8], ['20%', '0%']);
-  const scaleSection3 = useTransform(smoothProgress, [0.5, 0.8], [0.85, 1]);
+  const yText = useTransform(smoothProgress, [0, 0.15, 0.25], ['0px', '0px', '100px']);
+  const opacityText = useTransform(smoothProgress, [0, 0.15, 0.25], [1, 1, 0]);
+  const scaleText = useTransform(smoothProgress, [0, 0.15, 0.25], [1, 1, 0.8]);
 
-  const bgOverlayOpacity = useTransform(smoothProgress, [0, 0.2], [0, 0.4]);
+  // Section 1 (About)
+  const ySection1 = useTransform(smoothProgress, [0.15, 0.25, 0.35, 0.45], ['100vh', '0vh', '0vh', '-100vh']);
+  const opacitySection1 = useTransform(smoothProgress, [0.15, 0.25, 0.35, 0.45], [0, 1, 1, 0]);
+  const scaleSection1 = useTransform(smoothProgress, [0.15, 0.25, 0.35, 0.45], [0.8, 1, 1, 0.9]);
+
+  // Section 2 (How it works)
+  const ySection2 = useTransform(smoothProgress, [0.4, 0.5, 0.6, 0.7], ['100vh', '0vh', '0vh', '-100vh']);
+  const opacitySection2 = useTransform(smoothProgress, [0.4, 0.5, 0.6, 0.7], [0, 1, 1, 0]);
+  const scaleSection2 = useTransform(smoothProgress, [0.4, 0.5, 0.6, 0.7], [0.8, 1, 1, 0.9]);
+
+  // Section 3 (Vendor App)
+  const ySection3 = useTransform(smoothProgress, [0.65, 0.75, 0.9, 1.0], ['100vh', '0vh', '0vh', '0vh']);
+  const opacitySection3 = useTransform(smoothProgress, [0.65, 0.75, 0.9], [0, 1, 1]);
+  const scaleSection3 = useTransform(smoothProgress, [0.65, 0.75], [0.8, 1]);
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full h-[500vh]"
-    >
-      <motion.div 
-        className="fixed inset-0 z-[1] pointer-events-none bg-[#061530]/40 backdrop-brightness-[0.8]"
-        style={{ opacity: bgOverlayOpacity }}
-      />
+    <div className="w-full snap-y snap-proximity scroll-smooth bg-[#061530]">
+      <div
+        ref={containerRef}
+        className="relative w-full"
+        style={{ minHeight: '600vh' }}
+      >
+        {/* Scroll Snap Markers */}
+        <div className="absolute top-0 h-screen w-full snap-start pointer-events-none" />
+        <div className="absolute top-[180vh] h-screen w-full snap-start pointer-events-none" />
+        <div className="absolute top-[330vh] h-screen w-full snap-start pointer-events-none" />
+        <div className="absolute top-[480vh] h-screen w-full snap-start pointer-events-none" />
 
-      {/* Main Hero Content */}
-      <div className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pt-10 px-4">
-        <motion.div 
-          className="flex flex-nowrap items-center justify-center mb-4 md:mb-8 w-full max-w-full overflow-visible px-4"
-          style={{ y: yText, opacity: opacityText, scale: scaleText }}
-        >
-          {letters.map((l, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, z: -1000, scale: 3, filter: 'blur(30px)' }}
-              animate={{ opacity: 1, z: 0, scale: 1, filter: 'blur(0px)' }}
-              transition={{ 
-                duration: 1.5, 
-                ease: [0.16, 1, 0.3, 1], 
-                delay: 0.5 + i * 0.03 
-              }}
-              className="relative w-[7.5vw] sm:w-[8vw] max-w-[80px] h-[10vw] sm:h-[12vw] max-h-[110px] flex items-center justify-center z-20 will-change-transform m-[-0.2vw] perspective-[1000px]"
-              style={{ zIndex: letters.length - i }}
-            >
-              <motion.img 
-                src={l.src} 
-                alt={l.char} 
-                loading="eager"
-                className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] will-change-transform"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="h-20 md:h-28 w-full"></div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 25, delay: 1.5 }}
-          style={{ y: yText, opacity: opacityText }}
-          className="text-center flex flex-col items-center z-20"
-        >
-          <h2 className="text-white text-[9px] sm:text-[11px] md:text-sm tracking-[0.3em] md:tracking-[0.4em] font-medium mb-8 md:mb-12 text-shadow-sm opacity-90 uppercase max-w-[80vw]">
-            Where Creators Connect, Shine, and Sell
-          </h2>
-          
-          <Link to="/vendors">
-            <button className="flex items-center justify-center gap-3 bg-[#061530]/70 backdrop-blur-xl border border-white/30 text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full text-[10px] md:text-[11px] font-bold tracking-[0.15em] hover:bg-white/30 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(255,255,255,0.1)] hover:-translate-y-1">
-              <ArrowDown className="w-4 h-4 stroke-[2.5]" />
-              ENTER THE MARKET
-            </button>
-          </Link>
-        </motion.div>
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-visible">
 
-        {/* Floating Glass Cards at the Bottom of Hero */}
-        <motion.div 
-          className="absolute bottom-10 md:bottom-12 left-0 w-full px-6 flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 z-30 pointer-events-none"
-          initial={{ opacity: 0, y: 100, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 250, damping: 25, delay: 1.8 }}
-          style={{ opacity: opacityText }}
-        >
-          <Card icon={<MapPin className="w-5 h-5 text-[#0690d4] stroke-[2]" />} title="Nationwide" subtitle="7 Major Cities" />
-          <Card icon={<Users className="w-5 h-5 text-[#0690d4] stroke-[2]" />} title="Community" subtitle="1,000+ RSVPs" />
-          <Card icon={<Zap className="w-5 h-5 text-[#0690d4] stroke-[2]" />} title="Growth" subtitle="High ROI" />
-        </motion.div>
-      </div>
+          {/* HERO CONTENT (Stage 0) */}
+          <motion.div
+            className="content-frame absolute inset-0 z-10"
+            style={{ opacity: opacityText, scale: scaleText, y: yText }}
+          >
+            <div className="flex flex-col items-center justify-center px-4 max-w-7xl w-full my-auto">
+              <motion.div
+                className="flex flex-nowrap items-center justify-center mb-6 md:mb-12 w-full"
+              >
+                {letters.map((l, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, z: -1000, scale: 3, filter: 'blur(30px)' }}
+                    animate={{ opacity: 1, z: 0, scale: 1, filter: 'blur(0px)' }}
+                    transition={{
+                      duration: 2.5,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: 0.8 + i * 0.06
+                    }}
+                    className="relative w-[8vw] sm:w-[7vw] max-w-[65px] h-[10vw] sm:h-[11vw] max-h-[90px] flex items-center justify-center z-20 will-change-transform m-[-0.3vw] perspective-[1000px]"
+                    style={{ zIndex: letters.length - i }}
+                  >
+                    <motion.img
+                      src={l.src}
+                      alt={l.char}
+                      loading="lazy"
+                      className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
 
-      {/* Content Placed Down the Scroll */}
-      <div className="relative w-full z-20 pointer-events-none flex flex-col">
-        
-        {/* Interactive Sections below clouds */}
-        <div className="relative w-full flex flex-col items-center py-20 md:py-40 px-6 md:px-12 gap-24 md:gap-40 pointer-events-auto mt-[20vh]">
-          
-          <div className="w-full overflow-hidden bg-white/5 backdrop-blur-3xl border-y border-white/10 py-6 md:py-10 flex relative shadow-2xl">
-            <motion.div 
-              className="flex whitespace-nowrap gap-8 md:gap-16 items-center text-white/90 font-bold tracking-[0.3em] text-xl md:text-3xl uppercase"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-            >
-              <span> ACCEPTING VENDORS</span><span>•</span>
-              <span>MULTI-CITY ROLLOUT</span><span>•</span>
-              <span>FOREIGN AFFAIRS MARKET</span><span>•</span>
-              <span>150+ TARGETED ATTENDEES</span><span>•</span>
-            </motion.div>
-          </div>
-
-          <motion.div style={{ y: ySection1, scale: scaleSection1 }} className="max-w-7xl w-full flex flex-col lg:flex-row gap-12 md:gap-20 items-center justify-between">
-            <div className="w-full lg:w-[55%]">
-              <span className="text-[#0690d4] tracking-[0.4em] text-[10px] font-bold uppercase mb-4 block">The Vendor Experience</span>
-              <h3 className="text-3xl md:text-7xl font-medium text-white mb-6 md:mb-8 tracking-tight drop-shadow-2xl">FOR VENDORS</h3>
-              <p className="text-white/60 text-lg md:text-xl leading-relaxed font-light mb-8 md:mb-12 max-w-2xl">
-                You're not just renting a booth — you're investing in visibility, community, and sales. Secure your professional presence.
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6, duration: 1.5 }}
+                className="mb-8 md:mb-12"
+              >
+                <span className="text-[8px] sm:text-[10px] tracking-[0.4em] text-[#0077b6] font-black uppercase bg-[#0077b6]/10 px-4 py-2 rounded-full border border-[#0077b6]/20">The Infrastructure of Independence</span>
+              </motion.div>
+              
+              <h2 className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl tracking-[0.25em] font-black mb-8 md:mb-10 text-center uppercase italic leading-relaxed max-w-[90vw] sm:max-w-[80vw]">
+                "We found <span className="text-[#0077b6] not-italic">peace</span>, by having a <span className="text-white border-b-2 border-[#0077b6] not-italic">piece</span> of the market."
+              </h2>
+              
+              <p className="text-white/60 text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.15em] font-medium max-w-2xl mb-10 md:mb-16 text-center uppercase leading-relaxed">
+                The vendor-event marketplace connecting small businesses, cool venues, and the communities that love them.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                <div className="flex flex-col gap-3 md:gap-4 text-white/90 bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 backdrop-blur-xl group hover:bg-white/10 transition-all">
-                  <Camera className="w-8 md:w-10 h-8 md:h-10 text-[#0690d4] group-hover:scale-110 transition-transform" />
-                  <div>
-                    <h5 className="font-medium text-base md:text-lg mb-1 md:mb-2 tracking-tight">Professional Media</h5>
-                    <p className="text-white/40 text-xs md:text-sm font-light leading-relaxed">High-res photos and video coverage of your brand.</p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 md:gap-4 text-white/90 bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 backdrop-blur-xl group hover:bg-white/10 transition-all">
-                  <Users className="w-8 md:w-10 h-8 md:h-10 text-[#0690d4] group-hover:scale-110 transition-transform" />
-                  <div>
-                    <h5 className="font-medium text-base md:text-lg mb-1 md:mb-2 tracking-tight">Targeted Crowd</h5>
-                    <p className="text-white/40 text-xs md:text-sm font-light leading-relaxed">150-300 eager shoppers and supporters.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-full lg:w-[40%]">
-              <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.4)] hover:scale-[1.02] transition-all duration-700 relative overflow-hidden group">
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#0690d4]/20 rounded-full blur-[100px] pointer-events-none"></div>
-                <h4 className="text-3xl md:text-4xl text-white font-medium mb-4 tracking-tight">Secure Your Spot</h4>
-                <p className="text-white/40 mb-8 md:mb-10 font-light leading-relaxed text-base md:text-lg">Only 10 spots per event. First come, first served. Secure yours today with a deposit.</p>
-                <Link to="/contact">
-                  <button className="w-full py-5 md:py-6 bg-white text-[#061530] font-bold rounded-2xl tracking-[0.2em] text-[10px] md:text-xs uppercase hover:bg-white/90 transition-all shadow-2xl cursor-pointer hover:-translate-y-1 active:translate-y-0">
-                    INQUIRE NOW
+
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-12 md:mb-16">
+                <Link to="/vendors">
+                  <button className="flex items-center justify-center gap-3 bg-white text-[#061530] px-6 py-4 sm:px-10 sm:py-5 rounded-xl text-[10px] sm:text-[11px] font-black tracking-[0.2em] hover:bg-white/90 transition-all shadow-2xl hover:-translate-y-1 uppercase btn-glow">
+                    Apply as Vendor
+                  </button>
+                </Link>
+                <Link to="/venues">
+                  <button className="flex items-center justify-center gap-3 liquid-glass text-white px-6 py-4 sm:px-10 sm:py-5 rounded-xl text-[10px] sm:text-[11px] font-black tracking-[0.2em] hover:bg-black/60 transition-all shadow-xl hover:-translate-y-1 uppercase">
+                    Partner Your Venue
                   </button>
                 </Link>
               </div>
-            </div>
-          </motion.div>
 
-          <motion.div style={{ y: ySection2, scale: scaleSection2 }} className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 hover:bg-white/10 transition-all duration-500 shadow-2xl group flex flex-col justify-between items-start min-h-[350px] md:min-h-[400px]">
-              <div className="w-full">
-                <div className="w-14 md:w-16 h-14 md:h-16 rounded-2xl bg-[#0690d4]/10 flex items-center justify-center text-[#0690d4] mb-6 md:mb-8 group-hover:scale-110 transition-transform">
-                  <Ticket className="w-6 md:w-8 h-6 md:h-8" />
+              <div className="flex items-center gap-6 sm:gap-10 md:gap-16 py-8 md:py-12 border-t border-white/5 w-full justify-center">
+                <div className="flex flex-col items-center">
+                  <span className="text-white font-black text-lg md:text-2xl tracking-tighter italic amount">$250</span>
+                  <span className="text-white/30 text-[7px] md:text-[9px] tracking-[0.2em] uppercase font-bold">Standard Booth</span>
                 </div>
-                <h4 className="text-2xl md:text-3xl text-white font-medium mb-4 md:mb-6 tracking-tight">FOR ATTENDEES</h4>
-                <p className="text-white/40 text-base md:text-lg font-light mb-8 leading-relaxed">
-                  Tickets are $5 (or FREE if you share on social). Expect live music, goodie bags, and unique vendors.
-                </p>
-              </div>
-              <Link to="/attendees">
-                <button className="w-full md:w-auto px-10 py-4 bg-white/5 border border-white/20 text-white font-bold rounded-xl tracking-[0.2em] text-[10px] uppercase hover:bg-white/10 transition-all">
-                  GET TICKETS
-                </button>
-              </Link>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 hover:bg-white/10 transition-all duration-500 shadow-2xl group flex flex-col justify-between items-start min-h-[350px] md:min-h-[400px]">
-              <div className="w-full">
-                <div className="w-14 md:w-16 h-14 md:h-16 rounded-2xl bg-[#0690d4]/10 flex items-center justify-center text-[#0690d4] mb-6 md:mb-8 group-hover:scale-110 transition-transform">
-                  <MapPin className="w-6 md:w-8 h-6 md:h-8" />
+                <div className="w-[1px] h-6 bg-white/10" />
+                <div className="flex flex-col items-center">
+                  <span className="text-white font-black text-lg md:text-2xl tracking-tighter italic amount">$500</span>
+                  <span className="text-white/30 text-[7px] md:text-[9px] tracking-[0.2em] uppercase font-bold">Flagship Booth</span>
                 </div>
-                <h4 className="text-2xl md:text-3xl text-white font-medium mb-4 md:mb-6 tracking-tight">FOR VENUES</h4>
-                <p className="text-white/40 text-base md:text-lg font-light mb-8 leading-relaxed">
-                  We bring the crowd, you get the credit. We partner with local spaces to create unique community experiences.
-                </p>
+                <div className="w-[1px] h-6 bg-white/10" />
+                <div className="flex flex-col items-center">
+                  <span className="text-white font-black text-lg md:text-2xl tracking-tighter italic amount">$5</span>
+                  <span className="text-white/30 text-[7px] md:text-[9px] tracking-[0.2em] uppercase font-bold">Door Entry</span>
+                </div>
               </div>
-              <Link to="/venues">
-                <button className="w-full md:w-auto px-10 py-4 bg-white/5 border border-white/20 text-white font-bold rounded-xl tracking-[0.2em] text-[10px] uppercase hover:bg-white/10 transition-all">
-                  PARTNER WITH US
-                </button>
-              </Link>
             </div>
           </motion.div>
 
-          <motion.div style={{ y: ySection3, scale: scaleSection3 }} className="w-full flex flex-col items-center mt-10 md:mt-20 mb-20 md:mb-40">
-            <h3 className="text-2xl md:text-4xl font-medium text-white mb-10 md:mb-16 tracking-[0.2em] md:tracking-[0.3em] uppercase text-center opacity-80">Multi-City Rollout</h3>
-            <div className="w-full overflow-hidden flex relative group mb-8 md:mb-12">
-              <motion.div 
-                className="flex whitespace-nowrap gap-4 md:gap-8 items-center px-4"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-              >
-                {[...cities, ...cities, ...cities].map((city, idx) => (
-                  <div key={idx} className="px-6 md:px-10 py-3 md:py-5 bg-white/5 border border-white/10 backdrop-blur-xl rounded-full text-white/80 font-medium tracking-widest text-[10px] md:text-sm uppercase">
-                    {city}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-            <Link to="/cities">
-              <button className="px-10 md:px-12 py-4 md:py-5 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-3xl rounded-full text-[10px] md:text-xs font-bold tracking-[0.2em] md:tracking-[0.3em] transition-all shadow-xl hover:-translate-y-1">
-                VIEW CITY SCHEDULE
-              </button>
-            </Link>
-          </motion.div>
-
-          {/* New Content: Ethos and FAQ */}
-          <div className="max-w-5xl w-full flex flex-col gap-16 md:gap-24 mb-20 md:mb-40 px-4">
-            <div className="text-center flex flex-col items-center">
-              <h2 className="text-3xl md:text-5xl font-medium tracking-tight mb-6 md:mb-8">The Foreign Affairs Ethos</h2>
-              <p className="text-white/40 font-light text-base md:text-xl leading-relaxed max-w-3xl">
-                We observed that most pop-up markets charge vendors exorbitant fees while doing zero marketing. Foreign Affairs LLC was built to change the paradigm. We cultivate a vibrant, high-energy environment. When you succeed, we succeed.
+          {/* SECTION 1 (About) */}
+          <motion.div
+            style={{ y: ySection1, scale: scaleSection1, opacity: opacitySection1 }}
+            className="content-frame absolute inset-0 z-20"
+          >
+            <div className="max-w-6xl w-full flex flex-col items-center text-center">
+              <span className="text-white bg-[#0077b6] px-3 py-1 rounded-full tracking-[0.3em] text-[8px] md:text-[9px] font-black uppercase mb-6 md:mb-14 shadow-lg">About Marketpeace</span>
+              <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 md:mb-12 italic uppercase leading-[0.95]">Who can be a vendor? <span className="not-italic text-stroke-blue">Anyone</span> can be a vendor.</h2>
+              <p className="text-white/60 text-[11px] sm:text-base md:text-lg lg:text-xl font-medium mb-8 md:mb-16 max-w-3xl leading-relaxed">
+                Marketpeace is a platform that connects four pillars of the local economy into one thriving marketplace.
               </p>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 text-left w-full">
+                <PillarCard
+                  title="Vendors"
+                  desc="Makers and innovators."
+                  icon={<Zap className="w-4 h-4 md:w-5 md:h-5 text-[#0077b6]" />}
+                />
+                <PillarCard
+                  title="Venues"
+                  desc="Unique local spaces."
+                  icon={<MapPin className="w-4 h-4 md:w-5 md:h-5 text-[#0077b6]" />}
+                />
+                <PillarCard
+                  title="Attendees"
+                  desc="Curated experiences."
+                  icon={<Users className="w-4 h-4 md:w-5 md:h-5 text-[#0077b6]" />}
+                />
+                <PillarCard
+                  title="Partners"
+                  desc="Grow the network."
+                  icon={<Ticket className="w-4 h-4 md:w-5 md:h-5 text-[#0077b6]" />}
+                />
+              </div>
             </div>
+          </motion.div>
 
-            <div className="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-24 shadow-2xl w-full">
-              <h3 className="text-xl md:text-3xl font-medium mb-10 md:mb-16 text-center uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-80 px-2">Operational FAQ</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-10 md:gap-y-12">
-                <div className="flex flex-col gap-3">
-                  <h4 className="text-lg md:text-xl font-medium text-white tracking-tight">What does the $150 Vendor Fee cover?</h4>
-                  <p className="text-white/40 font-light text-sm md:text-base leading-relaxed">It covers your space, guaranteed foot traffic, professional media assets, and guest tickets.</p>
+          {/* SECTION 2 (How it Works) */}
+          <motion.div
+            style={{ y: ySection2, scale: scaleSection2, opacity: opacitySection2 }}
+            className="content-frame absolute inset-0 z-20"
+          >
+            <div className="max-w-6xl w-full flex flex-col items-center">
+              <span className="text-white bg-[#0077b6] px-3 py-1 rounded-full tracking-[0.3em] text-[8px] md:text-[9px] font-black uppercase mb-6 md:mb-14 shadow-lg">How it Works</span>
+              <h3 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-black text-white mb-8 md:mb-20 tracking-tighter text-center italic uppercase leading-[0.95]">From application to <span className="not-italic text-stroke-blue">profit</span> in 3 steps</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-10 w-full">
+                <JourneyStep number="01" title="Apply" desc="Tell us about your brand or venue." />
+                <JourneyStep number="02" title="Selected" desc="Get picked for a matching vibe." />
+                <JourneyStep number="03" title="Promoted" desc="We handle marketing, you handle business." />
+              </div>
+              <p className="mt-8 md:mt-16 text-[#0077b6] font-black tracking-[0.3em] uppercase text-[9px] md:text-xs animate-pulse">Bonus: Profit & Repeat.</p>
+            </div>
+          </motion.div>
+
+          {/* SECTION 3 (Application) */}
+          <motion.div
+            style={{ y: ySection3, scale: scaleSection3, opacity: opacitySection3 }}
+            className="content-frame absolute inset-0 z-20"
+          >
+            <div className="max-w-7xl w-full flex flex-col lg:flex-row gap-8 md:gap-20 items-center lg:items-start justify-center">
+              <div className="w-full lg:w-[50%]">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-white bg-[#0077b6] px-3 py-1 rounded-full tracking-[0.3em] text-[8px] font-black uppercase inline-block shadow-lg">Vendor Application</span>
+                  <span className="text-[#0077b6] bg-[#0077b6]/10 px-3 py-1 rounded-full tracking-[0.2em] text-[8px] font-black uppercase inline-block border border-[#0077b6]/20 animate-pulse">Limited Slots Remaining</span>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <h4 className="text-lg md:text-xl font-medium text-white tracking-tight">Is the deposit refundable?</h4>
-                  <p className="text-white/40 font-light text-sm md:text-base leading-relaxed">No. The deposit secures your spot and allows us to begin city-specific marketing immediately.</p>
+                <h3 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 md:mb-8 tracking-tighter uppercase italic leading-[0.95]">Your booth. Your crowd. <span className="not-italic text-stroke-blue">Your commission.</span></h3>
+                <p className="text-white/60 text-[10px] sm:text-base md:text-lg leading-relaxed font-medium mb-6 md:mb-12 max-w-2xl">
+                  Choose the tier that fits your growth strategy. Every vendor gets access to our premium infrastructure. <span className="text-white">Secure your position today.</span>
+                </p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-6 mb-6">
+                  <Link to="/vendors" className="block group">
+                    <div className="liquid-glass p-4 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group-hover:border-white/40 transition-all cursor-pointer h-full">
+                      <div className="flex justify-between items-center mb-2 md:mb-4">
+                        <h5 className="font-black text-sm md:text-lg tracking-tight italic uppercase title">Standard</h5>
+                        <span className="text-white font-black italic amount">$250</span>
+                      </div>
+                      <ul className="text-white/50 text-[9px] md:text-[11px] font-medium space-y-1 md:space-y-2">
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> 6ft Table & 2 Chairs</li>
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Standard Placement</li>
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Social Mention</li>
+                      </ul>
+                    </div>
+                  </Link>
+                  <Link to="/vendors" className="block group">
+                    <div className="liquid-glass p-4 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border-[#0077b6]/40 group-hover:border-[#0077b6]/60 transition-all relative cursor-pointer h-full premium-border">
+                      <div className="absolute -top-3 right-6 bg-[#0077b6] text-white text-[7px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest btn-glow">Most Popular</div>
+                      <div className="flex justify-between items-center mb-2 md:mb-4">
+                        <h5 className="font-black text-sm md:text-lg tracking-tight italic uppercase title">Flagship</h5>
+                        <span className="text-white font-black italic amount">$500</span>
+                      </div>
+                      <ul className="text-white/50 text-[9px] md:text-[11px] font-medium space-y-1 md:space-y-2">
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Corner Placement</li>
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Featured Promo</li>
+                        <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Pro Content Pack</li>
+                        <li className="flex items-center gap-2 text-[#0077b6] font-bold"><div className="w-1 h-1 bg-[#0077b6] rounded-full" /> Maximum Visibility</li>
+                      </ul>
+                    </div>
+                  </Link>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <h4 className="text-lg md:text-xl font-medium text-white tracking-tight">Do you provide equipment?</h4>
-                  <p className="text-white/40 font-light text-sm md:text-base leading-relaxed">Vendors bring their own tables and displays. We provide the platform and the audience.</p>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <h4 className="text-lg md:text-xl font-medium text-white tracking-tight">How do Promoters get paid?</h4>
-                  <p className="text-white/40 font-light text-sm md:text-base leading-relaxed">Promoters earn commission on ticket sales and vendor referrals. Paid weekly.</p>
+
+                <div className="pt-4 border-t border-white/5 hidden sm:block">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4">
+                    <span className="text-white/30 text-[8px] md:text-[9px] uppercase font-black tracking-widest">Marketing Support</span>
+                    <span className="text-white/30 text-[8px] md:text-[9px] uppercase font-black tracking-widest">Data Ownership</span>
+                    <span className="text-white/30 text-[8px] md:text-[9px] uppercase font-black tracking-widest">Pro Photography</span>
+                  </div>
+                  </div>
                 </div>
               </div>
+
+              <div className="w-full lg:w-[40%] flex justify-center lg:justify-end">
+                <div className="liquid-glass p-6 md:p-12 shadow-2xl hover:scale-[1.01] transition-all duration-500 relative overflow-hidden group w-full max-w-md border-[#0077b6]/20">
+                  <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#0690d4]/10 rounded-full blur-[100px] pointer-events-none"></div>
+                  <h4 className="text-xl md:text-3xl text-white font-black mb-2 md:mb-4 tracking-tighter uppercase italic">Secure Your <span className="not-italic text-stroke-blue">Piece</span></h4>
+                  <p className="text-white/50 mb-6 md:mb-8 font-medium leading-relaxed text-[11px] md:text-base">Applications reviewed within 48h. Deposit locks your spot in the rollout.</p>
+                  <Link to="/vendors" className="block w-full">
+                    <button className="w-full py-4 md:py-5 bg-white text-[#061530] font-black rounded-xl tracking-[0.2em] text-[9px] md:text-xs uppercase hover:bg-white/90 transition-all shadow-lg active:scale-95 btn-glow">
+                      SECURE YOUR SPOT
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* REMAINDER OF FLOW SECTIONS (referral, gallery, etc.) */}
+      <div id="referral" className="snap-start max-w-4xl w-full mx-auto flex flex-col items-center py-24 md:py-44 px-6 scroll-mt-24">
+        <span className="text-white bg-[#0077b6] px-3 py-1 rounded-full tracking-[0.4em] text-[8px] font-black uppercase mb-6 inline-block">The Referral Network</span>
+        <h3 className="text-3xl md:text-6xl lg:text-7xl font-black text-white mb-8 md:mb-12 tracking-tighter uppercase italic leading-[0.9] text-center">Get paid for being <span className="not-italic text-stroke-blue">part of the market.</span></h3>
+        <p className="text-white/60 text-base md:text-xl leading-relaxed font-medium mb-12 md:mb-16 text-center max-w-2xl">
+          Our referral program is simple: everyone wins. Vendors, venues, and enthusiasts can participate.
+        </p>
+        <div className="w-full space-y-3 md:space-y-4">
+          <RewardTier tier="Tier 1" action="Refer 1 Approved Vendor" reward="$50 Cash/Credit" />
+          <RewardTier tier="Tier 2" action="Refer 1 Approved Venue" reward="$75 Cash/Credit" />
+          <RewardTier tier="Tier 3" action="Refer 3 Approved Vendors" reward="$200 Cash/Credit" />
+          <RewardTier tier="Tier 4" action="Refer 3 Approved Venues" reward="$300 Cash/Credit" />
+          <RewardTier tier="Tier 5" action="Ticket Cluster (10+ Buyers)" reward="$25 per Cluster" />
+        </div>
+        <Link to="/contact" className="mt-12 w-full md:w-auto">
+          <button className="px-10 py-5 bg-transparent border border-white/20 text-white rounded-xl text-[10px] md:text-xs font-black tracking-[0.2em] uppercase hover:bg-white/5 transition-all w-full md:min-w-[280px]">
+            Join the Network
+          </button>
+        </Link>
+      </div>
+
+      {/* Gallery Section */}
+      <div className="snap-start w-full py-24 md:py-44 px-6 relative overflow-hidden bg-white/[0.01]">
+        <motion.img
+          src="/assets/clouds/cloud1.png"
+          className="absolute -top-20 -left-20 w-96 opacity-10 pointer-events-none blur-sm"
+          animate={{ x: [0, 50, 0] }}
+          transition={{ duration: 30, repeat: Infinity }}
+        />
+        <div className="max-w-7xl w-full mx-auto">
+          <h3 className="text-xl md:text-3xl font-black text-white mb-16 tracking-[0.3em] uppercase italic text-center opacity-80">The Scene</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <GalleryItem image="/assets/AI Images/249AFEB9-A174-40FA-9898-3266EAA2A6F2.png" caption="High-fidelity creator deployment in progress." />
+            <GalleryItem image="/assets/AI Images/39ACA358-0EAF-4903-A46D-B7326B9B4B87.png" caption="Strategic node activation at rooftop venue." />
+            <GalleryItem image="/assets/AI Images/F26D62C4-2E3A-42EA-9398-9255E9B7BDE6.png" caption="Community sync during sunset rollout." />
+          </div>
+        </div>
+      </div>
+
+      {/* Event Visualizer Section */}
+      <div className="snap-start w-full py-24 md:py-48 px-6 bg-white/[0.02] relative overflow-hidden">
+        <motion.img
+          src="/assets/clouds/cloud2.png"
+          className="absolute top-0 right-0 w-[600px] opacity-10 pointer-events-none blur-2xl"
+          animate={{ y: [0, 100, 0] }}
+          transition={{ duration: 40, repeat: Infinity }}
+        />
+        <div className="max-w-7xl w-full mx-auto flex flex-col items-center">
+          <span className="text-white bg-[#0077b6] px-3 py-1 rounded-full tracking-[0.4em] text-[8px] font-black uppercase mb-6 inline-block shadow-lg">Event Visualizer</span>
+          <h3 className="text-3xl md:text-7xl lg:text-8xl font-black text-white mb-12 md:mb-16 tracking-tighter text-center italic uppercase leading-[0.9]">Experience the <span className="not-italic text-stroke-blue">Atmosphere.</span></h3>
+          <div className="w-full aspect-video liquid-glass rounded-[2rem] md:rounded-[3.5rem] flex items-center justify-center relative group overflow-hidden shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <motion.div
+              whileInView={{ scale: [1, 1.03, 1] }}
+              viewport={{ once: true }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+              className="w-full h-full"
+            >
+              <img src="/assets/AI Images/2D60E085-B17B-4507-8464-CC6772033B2E.PNG" loading="lazy" className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-1000" />
+            </motion.div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-3xl rounded-full flex items-center justify-center border border-white/20 mb-8 cursor-pointer hover:scale-110 transition-transform group shadow-xl">
+                <Play className="w-6 h-6 md:w-8 md:h-8 text-white ml-1 fill-current" />
+              </div>
+              <h4 className="text-white text-lg md:text-3xl font-black tracking-widest uppercase italic">Launch Simulation</h4>
+              <p className="text-white/40 text-[8px] md:text-sm tracking-widest uppercase font-bold mt-2">Foreign Affairs Market Protocol v2.4</p>
             </div>
           </div>
+        </div>
+      </div>
 
+      {/* Global Rollout Section */}
+      <div className="snap-start w-full flex flex-col items-center py-24 md:py-44 border-y border-white/5 bg-white/[0.01]">
+        <h3 className="text-xl md:text-3xl font-black text-white mb-12 md:mb-20 tracking-[0.3em] uppercase text-center italic opacity-80">Global Rollout</h3>
+        <div className="w-full overflow-hidden flex group border-y border-white/5 py-12 md:py-24 liquid-glass">
+          <motion.div
+            className="flex whitespace-nowrap gap-10 md:gap-24 items-center"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              duration: 40,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex gap-10 md:gap-24 items-center">
+                <Card title="New York, NY" subtitle="Active Node 01" />
+                <Card title="Washington, D.C." subtitle="Active Node 02" />
+                <Card title="Atlanta, GA" subtitle="Active Node 03" />
+                <Card title="Miami, FL" subtitle="Planned Node" />
+                <Card title="Los Angeles, CA" subtitle="Planned Node" />
+                <Card title="Chicago, IL" subtitle="Expansion" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+        <p className="text-white/30 text-[8px] md:text-xs tracking-[0.3em] font-black uppercase mb-12 mt-12">Coming soon to a city near you.</p>
+        <Link to="/cities">
+          <button className="px-10 py-5 liquid-glass hover:bg-white/15 text-white transition-all shadow-xl hover:-translate-y-1">
+            SYSTEM SCHEDULE
+          </button>
+        </Link>
+      </div>
+
+      {/* Final Inquiry Section */}
+      <div className="snap-start w-full py-24 md:py-48 px-6 bg-[#0077b6]/5">
+        <div className="max-w-4xl w-full mx-auto liquid-glass p-10 md:p-24 text-center shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#0077b6]/10 blur-[100px] -mr-32 -mt-32"></div>
+          <h3 className="text-3xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase italic leading-[0.95]">Ready for <span className="not-italic text-[#0077b6]">Rollout?</span></h3>
+          <p className="text-white/50 text-base md:text-xl font-medium mb-12 md:mb-16 leading-relaxed">Submit your system inquiry below and initiate the synchronization process.</p>
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left max-w-2xl mx-auto">
+            <input type="text" placeholder="Full Name" className="bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white outline-none focus:border-[#0077b6] text-sm" />
+            <input type="email" placeholder="Email Channel" className="bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white outline-none focus:border-[#0077b6] text-sm" />
+            <select className="bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white outline-none focus:border-[#0077b6] md:col-span-2 appearance-none text-sm">
+              <option value="" disabled selected>Inquiry Type</option>
+              <option value="vendor">Vendor Activation</option>
+              <option value="venue">Venue Partnership</option>
+              <option value="attendee">Attendee/Ticket Inquiry</option>
+            </select>
+            <button className="md:col-span-2 py-5 bg-white text-[#061530] font-black rounded-xl tracking-[0.3em] uppercase hover:bg-[#0077b6] hover:text-white transition-all mt-4 text-[10px] md:text-xs btn-glow">Initiate System Sync</button>
+          </form>
+        </div>
+      </div>
+
+      <div className="snap-start w-full px-6 md:px-12 flex flex-col items-center pb-24 md:pb-40 relative">
+        <motion.img
+          src="/assets/clouds/cloud4.png"
+          className="absolute top-0 left-0 w-[600px] opacity-10 pointer-events-none blur-3xl"
+          animate={{ rotate: [0, 5, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 40, repeat: Infinity }}
+        />
+
+        <div className="max-w-5xl w-full flex flex-col gap-20 md:gap-32">
+          <div className="text-center flex flex-col items-center">
+            <span className="text-[#0077b6] text-[10px] font-black tracking-[0.4em] uppercase mb-6">Our Purpose</span>
+            <h2 className="text-4xl md:text-8xl font-black tracking-tighter mb-10 text-white italic uppercase leading-[0.9]">The MARKETPEACE <span className="not-italic text-stroke-blue">Ethos</span></h2>
+            <p className="text-white/60 font-medium text-base md:text-xl leading-relaxed max-w-3xl">
+              We observed a fundamental flaw in the creator economy: maximum output, minimum ownership. MARKETPEACE was built to provide the strategic infrastructure for independence.
+            </p>
+          </div>
+
+          <div className="liquid-glass p-10 md:p-24 shadow-2xl w-full relative overflow-hidden">
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#0077b6]/5 blur-[100px] -ml-32 -mb-32"></div>
+            <h3 className="text-2xl md:text-4xl font-black mb-16 md:mb-24 text-center uppercase tracking-[0.3em] text-white opacity-80 italic">System FAQ</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-20 gap-y-12 md:gap-y-20 text-left">
+              <FAQItem q="Strategic Position?" a="Your dedicated environment within the node rollout. Standard positions are 8x6 areas." />
+              <FAQItem q="Early Bird?" a="Secure activation with a $100 deposit, locking in preferred positioning." />
+              <FAQItem q="Refund Schedule?" a="Full system refunds processed up to 7 days prior to rollout." />
+              <FAQItem q="Assets Provided?" a="Yes. Core infrastructure: tables, signage, and staff support." />
+              <FAQItem q="Data Management?" a="Creators maintain 100% sovereignty over their patron data." />
+              <FAQItem q="System Entry?" a="Submit credentials via portal. Approval typically occurs within 48h." />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function Card({ icon, title, subtitle }) {
+function EventCard({ date, title, theme, location }) {
   return (
-    <div className="bg-[#061530]/60 backdrop-blur-3xl border border-white/20 px-5 py-3 md:px-6 md:py-4 flex items-center gap-4 md:gap-5 w-[85vw] sm:w-[260px] md:w-[280px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shadow-md shrink-0">
+    <div className="liquid-glass p-8 rounded-[2.5rem] flex flex-col gap-4 group hover:border-[#0077b6]/50 transition-all">
+      <span className="text-[#0077b6] text-sm font-black italic tracking-widest">{date}</span>
+      <h4 className="text-2xl font-black text-white uppercase italic tracking-tight">{title}</h4>
+      <div className="flex flex-col gap-1">
+        <span className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em]">{theme}</span>
+        <span className="text-white/60 text-xs font-medium">{location}</span>
+      </div>
+      <button className="mt-4 w-full py-3 liquid-glass hover:bg-white/10 transition-all">
+        Notify Me
+      </button>
+    </div>
+  );
+}
+
+function PillarCard({ title, desc, icon }) {
+  return (
+    <div className="flex flex-col gap-2 md:gap-6 p-4 md:p-8 liquid-glass group hover:bg-black/50 transition-all">
+      <div className="w-8 h-8 md:w-12 md:h-12 bg-[#0077b6]/20 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
         {icon}
       </div>
-      <div className="flex flex-col">
-        <h3 className="text-white font-medium text-[11px] md:text-[13px] tracking-wide mb-0.5">{title}</h3>
-        <p className="text-white/70 text-[9px] md:text-[11px] tracking-wide">{subtitle}</p>
+      <div>
+        <h4 className="text-sm md:text-xl font-black mb-1 md:mb-2 text-white tracking-tight uppercase italic title">{title}</h4>
+        <p className="text-white/50 font-medium text-[9px] md:text-sm leading-tight md:leading-relaxed description">{desc}</p>
       </div>
+    </div>
+  );
+}
+
+function RewardTier({ tier, action, reward }) {
+  return (
+    <div className="flex items-center justify-between p-4 liquid-glass">
+      <div className="flex flex-col">
+        <span className="text-white text-[10px] font-black uppercase tracking-widest title">{tier}</span>
+        <span className="text-white/50 text-[10px] md:text-xs font-medium uppercase description">{action}</span>
+      </div>
+      <span className="text-white font-black italic text-xs amount">{reward}</span>
+    </div>
+  );
+}
+
+function StepCard({ number, title, desc }) {
+  return (
+    <div className="flex flex-col p-8 md:p-10 liquid-glass hover:border-[#0077b6]/40 transition-all group">
+      <span className="text-[#0077b6] text-4xl font-black italic mb-6 group-hover:scale-110 transition-transform inline-block">{number}</span>
+      <h4 className="text-white font-black text-xl mb-4 tracking-tight uppercase italic title">{title}</h4>
+      <p className="text-white/40 text-sm font-medium leading-relaxed description">{desc}</p>
+    </div>
+  );
+}
+
+function VenueProp({ title, desc }) {
+  return (
+    <div className="flex flex-col gap-4 p-8 liquid-glass group hover:border-[#0077b6]/50 transition-all">
+      <h4 className="text-lg font-black text-white uppercase italic title">{title}</h4>
+      <p className="text-white/40 text-xs md:text-sm font-medium leading-relaxed description">{desc}</p>
+    </div>
+  );
+}
+
+function FAQItem({ q, a }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <h4 className="text-lg md:text-xl font-black text-white tracking-tight italic uppercase">{q}</h4>
+      <p className="text-white/50 font-medium text-sm md:text-base leading-relaxed text-left">{a}</p>
+    </div>
+  );
+}
+
+function JourneyStep({ number, title, desc }) {
+  return (
+    <div className="flex flex-col gap-3 md:gap-6 p-4 md:p-10 liquid-glass group hover:bg-black/50 transition-all">
+      <span className="text-2xl md:text-5xl font-black text-[#0077b6]/20 group-hover:text-[#0077b6]/40 transition-colors italic">{number}</span>
+      <div>
+        <h4 className="text-lg md:text-2xl font-black mb-1 md:mb-3 text-white tracking-tight italic uppercase title">{title}</h4>
+        <p className="text-white/50 font-medium text-[10px] md:text-base leading-tight md:leading-relaxed description">{desc}</p>
+      </div>
+    </div>
+  );
+}
+
+function GalleryItem({ image, caption }) {
+  return (
+    <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 aspect-square">
+      <img src={image} alt={caption} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+        <p className="text-white/80 text-[10px] md:text-xs font-black tracking-widest uppercase italic">{caption}</p>
+      </div>
+    </div>
+  );
+}
+
+function Card({ title, subtitle }) {
+  return (
+    <div className="liquid-glass px-5 py-3 md:px-6 md:py-4 flex flex-col items-center text-center justify-center gap-1 w-[85vw] sm:w-[260px] md:w-[280px] shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
+      <h3 className="text-white font-black text-[11px] md:text-[13px] tracking-wide mb-0.5 uppercase italic title">{title}</h3>
+      <p className="text-white/50 text-[9px] md:text-[11px] tracking-widest uppercase font-bold description">{subtitle}</p>
     </div>
   );
 }

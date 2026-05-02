@@ -120,7 +120,12 @@ const CameraController = () => {
 export default function BackgroundClouds() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundColor: "#0690d4", ...noiseOverlayStyle }}>
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 5] }}>
+      <Canvas 
+        shadows={false} 
+        dpr={[1, 1.5]} 
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={0.5} />
         <CloudContainer />
         <CameraController />

@@ -26,19 +26,19 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full min-h-screen pt-32 md:pt-40 px-6 md:px-12 flex flex-col items-center pb-20 md:pb-32 overflow-x-hidden">
+    <div className="w-full min-h-screen pt-24 sm:pt-32 md:pt-40 px-4 sm:px-6 md:px-12 flex flex-col items-center pb-16 sm:pb-20 md:pb-32">
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-5xl w-full flex flex-col items-center text-center mb-16 md:mb-24"
+        className="max-w-5xl w-full flex flex-col items-center text-center mb-20 md:mb-32"
       >
-        <span className="text-white bg-[#0690d4] px-4 py-1.5 rounded-full tracking-[0.3em] text-[10px] md:text-xs font-black uppercase mb-8 shadow-[0_0_20px_rgba(6,144,212,0.4)]">
+        <span className="text-white bg-[#0077b6] px-4 py-1.5 rounded-full tracking-[0.3em] text-[10px] md:text-xs font-black uppercase mb-12 md:mb-16 shadow-[0_0_20px_rgba(0,119,182,0.4)]">
           Get In Touch
         </span>
-        <h1 className="text-4xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
-          Connect <span className="text-[#0690d4] not-italic">With Us</span>
+        <h1 className="text-2xl sm:text-4xl md:text-8xl font-black tracking-tighter mb-12 md:mb-16 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
+          Connect <span className="not-italic text-white drop-shadow-[0_0_15px_rgba(0,119,182,0.8)] [text-shadow:2px_2px_0_#0077b6,-2px_-2px_0_#0077b6,2px_-2px_0_#0077b6,-2px_2px_0_#0077b6]">With Us</span>
         </h1>
-        <p className="text-white/80 text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md">
+        <p className="text-white/80 text-sm sm:text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 drop-shadow-md mb-8 md:mb-12 description">
           Have questions about the market? Whether you're a creator, an attendee, or just curious, we're here to help.
         </p>
       </motion.div>
@@ -61,29 +61,29 @@ export default function Contact() {
           </div>
 
           {/* Vendor Specific Box */}
-          <div className="bg-[#0690d4]/10 border border-[#0690d4]/30 rounded-[2.5rem] p-8 md:p-12 backdrop-blur-xl relative overflow-hidden group">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#0690d4]/20 rounded-full blur-[80px] pointer-events-none"></div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center gap-4">
-              <MapPin className="text-[#0690d4]" /> FOR VENDORS
+          <div className="liquid-glass p-8 md:p-12 relative overflow-hidden group">
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#0077b6]/20 rounded-full blur-[80px] pointer-events-none"></div>
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-4 flex items-center gap-4 uppercase italic title">
+              <MapPin className="text-[#0077b6]" /> FOR VENDORS
             </h3>
-            <p className="text-white/70 text-lg font-light leading-relaxed mb-6">
+            <p className="text-white/70 text-lg font-medium leading-relaxed mb-6 description">
               Looking to showcase your brand? You can use the form or send a direct portfolio to our curation team.
             </p>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 inline-block">
-              <p className="text-[#0690d4] font-bold tracking-widest text-sm uppercase mb-1">Direct Curation Email</p>
-              <p className="text-white text-xl font-mono">vendors@foreignaffairs.com</p>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 inline-block w-full sm:w-auto">
+              <p className="text-[#0077b6] font-black tracking-widest text-[10px] uppercase mb-2 amount">Direct Curation Email</p>
+              <p className="text-white text-base md:text-xl font-black break-all title">vendors@foreignaffairs.com</p>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-white/5 border border-white/10 rounded-[2.5rem] p-6 md:p-12 backdrop-blur-[60px] shadow-2xl relative overflow-hidden">
-          <h3 className="text-2xl md:text-3xl font-medium mb-8 tracking-tight">Send a Message</h3>
+        <div className="lg:col-span-5 liquid-glass p-6 md:p-12 shadow-2xl relative overflow-hidden">
+          <h3 className="text-2xl md:text-3xl font-black mb-8 tracking-tight uppercase italic text-white title">Send a Message</h3>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input 
               type="text" 
               placeholder="Full Name" 
               required 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white outline-none focus:border-[#0690d4] text-sm backdrop-blur-md"
+              className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-white outline-none focus:border-[#0077b6] text-sm backdrop-blur-md"
               value={formData.name}
               onChange={e => setFormData({...formData, name: e.target.value})}
             />
@@ -91,12 +91,12 @@ export default function Contact() {
               type="email" 
               placeholder="Email Address" 
               required 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white outline-none focus:border-[#0690d4] text-sm backdrop-blur-md"
+              className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-white outline-none focus:border-[#0077b6] text-sm backdrop-blur-md"
               value={formData.email}
               onChange={e => setFormData({...formData, email: e.target.value})}
             />
             <select 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white/70 outline-none focus:border-[#0690d4] text-sm backdrop-blur-md appearance-none"
+              className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-white/70 outline-none focus:border-[#0077b6] text-sm backdrop-blur-md appearance-none"
               value={formData.subject}
               onChange={e => setFormData({...formData, subject: e.target.value})}
             >
@@ -108,14 +108,14 @@ export default function Contact() {
             <textarea 
               placeholder="Your Message" 
               required 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white outline-none focus:border-[#0690d4] h-32 text-sm backdrop-blur-md"
+              className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-white outline-none focus:border-[#0077b6] h-32 text-sm backdrop-blur-md"
               value={formData.message}
               onChange={e => setFormData({...formData, message: e.target.value})}
             />
             <button 
               type="submit" 
               disabled={status.submitting}
-              className="w-full mt-4 py-5 bg-white text-[#061530] font-bold rounded-2xl tracking-[0.2em] text-xs uppercase hover:bg-white/90 transition-all shadow-xl flex items-center justify-center gap-3"
+              className="w-full mt-4 py-3 sm:py-4 md:py-5 bg-white text-[#061530] font-black rounded-xl sm:rounded-2xl tracking-[0.1em] md:tracking-[0.2em] text-[9px] sm:text-xs uppercase hover:bg-white/90 transition-all shadow-xl flex items-center justify-center gap-2 sm:gap-3 btn-glow"
             >
               {status.submitting ? 'SENDING...' : <><Send size={16} /> SEND MESSAGE</>}
             </button>
@@ -129,13 +129,13 @@ export default function Contact() {
 
 function ContactMethod({ icon, title, value, link }) {
   return (
-    <a href={link} target="_blank" rel="noreferrer" className="flex flex-col gap-4 p-8 bg-white/5 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group backdrop-blur-sm">
-      <div className="w-12 h-12 rounded-2xl bg-[#0690d4]/10 flex items-center justify-center text-[#0690d4] group-hover:scale-110 transition-transform">
+    <a href={link} target="_blank" rel="noreferrer" className="flex flex-col gap-4 p-8 liquid-glass hover:bg-white/10 transition-all group">
+      <div className="w-12 h-12 rounded-2xl bg-[#0077b6]/10 flex items-center justify-center text-[#0077b6] group-hover:scale-110 transition-transform">
         {icon}
       </div>
       <div>
-        <h4 className="text-white/40 font-bold tracking-widest text-[10px] uppercase mb-1">{title}</h4>
-        <p className="text-white text-lg font-medium break-all">{value}</p>
+        <h4 className="text-white/40 font-black tracking-widest text-[10px] uppercase mb-1 amount">{title}</h4>
+        <p className="text-white text-base md:text-lg font-black title uppercase italic">{value}</p>
       </div>
     </a>
   );

@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Cloud, Search, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   const navLinks = [
     { name: 'HOME', path: '/' },
@@ -18,16 +29,19 @@ export default function Navbar() {
   return (
     <>
       <motion.nav 
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-        className="fixed top-0 left-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex items-center justify-between bg-black/5 backdrop-blur-[60px] border-b border-white/10 shadow-2xl"
+        variants={{
+          visible: { y: 0, opacity: 1 },
+          hidden: { y: -120, opacity: 0 }
+        }}
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6 flex items-center justify-between bg-[#061530]/60 backdrop-blur-3xl border-b border-white/5 shadow-2xl"
       >
-        <div className="flex items-center gap-12">
-          <Link to="/" onClick={() => setIsOpen(false)} className="hover:scale-110 transition-transform">
-            <Cloud className="w-8 h-8 text-white stroke-[1.5]" />
+        <div className="flex items-center gap-6 sm:gap-10 md:gap-12">
+          <Link to="/" onClick={() => setIsOpen(false)} className="hover:scale-105 transition-transform">
+            <span className="text-lg sm:text-xl md:text-2xl font-black tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-white uppercase italic">MARKETPEACE</span>
           </Link>
-          <div className="hidden lg:flex items-center gap-10 text-[10px] font-bold tracking-[0.3em] text-white">
+          <div className="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em] text-white">
             {navLinks.map((link) => (
               <NavLink key={link.path} to={link.path} current={location.pathname === link.path}>
                 {link.name}
@@ -36,12 +50,25 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <button className="text-white hover:scale-110 transition-transform hidden md:block">
-            <Search className="w-5 h-5 stroke-[1.5]" />
-          </button>
-          
-          {/* Hamburger Icon */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <Link to="/vendors" className="hidden lg:block">
+            <button className="px-6 py-2 bg-white text-[#061530] font-black rounded-lg tracking-[0.2em] text-[10px] uppercase hover:bg-[#0077b6] hover:text-white transition-all shadow-lg btn-glow">
+              JOIN
+            </button>
+          </Link>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1.2 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-[#0077b6]/20 blur-xl rounded-full animate-pulse" />
+            <img 
+              src="/assets/logo.png" 
+              alt="MARKETPEACE Logo" 
+              className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 object-contain relative z-10 mix-blend-multiply brightness-125"
+            />
+          </motion.div>
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden w-10 h-10 flex items-center justify-center text-white relative z-[101]"
@@ -94,8 +121,8 @@ export default function Navbar() {
               className="mt-20 z-10"
             >
               <Link to="/vendors" onClick={() => setIsOpen(false)}>
-                <button className="px-10 py-4 bg-white text-[#061530] font-bold rounded-2xl tracking-[0.2em] text-[10px] uppercase shadow-2xl">
-                  BECOME A VENDOR
+                <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-white text-[#061530] font-bold rounded-xl sm:rounded-2xl tracking-[0.1em] md:tracking-[0.2em] text-[8px] sm:text-[9px] md:text-xs uppercase shadow-2xl">
+                  JOIN THE SYSTEM
                 </button>
               </Link>
             </motion.div>
