@@ -1,60 +1,69 @@
-import { Instagram, Mail, Twitter, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="relative w-full flex flex-col items-center z-30 overflow-hidden pt-20 mt-20">
+    <footer className="relative w-full flex flex-col items-center z-30 pt-16 md:pt-32 mt-16 md:mt-24 overflow-hidden">
       
-      {/* Liquid Glass Footer */}
-      <div className="bg-white/[0.03] backdrop-blur-[120px] border-t border-white/10 p-8 md:p-20 w-full flex flex-col shadow-[0_-20px_80px_rgba(0,0,0,0.3)] relative z-30 overflow-hidden">
-        {/* Animated Background Depth Elements */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0077b6]/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none translate-y-1/2"></div>
-
-        <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16 relative z-10">
+      {/* Content Section: Placed ABOVE the image */}
+      <div className="max-w-6xl w-full mx-auto px-6 mb-8 md:mb-12 flex flex-col items-center text-center relative z-20">
+        
+        {/* Brand & Social Header */}
+        <div className="flex flex-col items-center gap-8 md:gap-10 mb-12 md:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="relative mb-4"
+          >
+            <div className="absolute inset-0 bg-[#0077b6]/10 blur-2xl rounded-full" />
+            <img src="/assets/logo.png" alt="MARKETPEACE Logo" loading="lazy" className="w-16 h-16 md:w-24 md:h-24 object-contain relative z-10 mix-blend-multiply brightness-125" />
+          </motion.div>
+          <h2 className="text-3xl md:text-6xl font-black tracking-[0.2em] md:tracking-[0.5em] text-white uppercase italic">MARKETPEACE</h2>
+          <p className="text-[#0077b6] text-[8px] md:text-[10px] tracking-[0.4em] uppercase font-black -mt-2">The Infrastructure of Independence</p>
           
-          <div className="col-span-1 md:col-span-2">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 tracking-[0.2em] text-white">MARKETPEACE</h2>
-            <p className="text-white/60 max-w-sm leading-relaxed mb-8 text-sm md:text-base font-light">
-              A recurring pop-up experience for creators, communities, and clients. We're not testing — we're executing.
-            </p>
-            <div className="flex gap-4">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer text-white">
-                <Instagram className="w-4 h-4 md:w-5 md:h-5" />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer text-white">
-                <Twitter className="w-4 h-4 md:w-5 md:h-5" />
-              </a>
-              <a href="mailto:contact@foreignaffairs.com" className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer text-white">
-                <Mail className="w-4 h-4 md:w-5 md:h-5" />
-              </a>
-            </div>
+          <div className="flex gap-8 md:gap-10 mt-6 md:mt-8">
+            {/* SECURITY (MED-6): rel="noopener noreferrer" prevents reverse tabnapping */}
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#0077b6] transition-all text-[9px] md:text-xs tracking-[0.2em] font-black uppercase">Instagram</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#0077b6] transition-all text-[9px] md:text-xs tracking-[0.2em] font-black uppercase">Twitter</a>
+            <a href="mailto:contact@foreignaffairs.com" className="text-white/40 hover:text-[#0077b6] transition-all text-[9px] md:text-xs tracking-[0.2em] font-black uppercase">Email</a>
           </div>
-
-          <div className="flex flex-col gap-3 md:gap-4">
-            <h5 className="text-white font-bold tracking-widest uppercase mb-1 md:mb-2 text-sm">Explore</h5>
-            <Link to="/vendors" className="text-white/60 hover:text-white transition-colors text-sm font-light">Vendor Registration</Link>
-            <Link to="/attendees" className="text-white/60 hover:text-white transition-colors text-sm font-light">Attendee Tickets</Link>
-            <Link to="/venues" className="text-white/60 hover:text-white transition-colors text-sm font-light">Venue Partnerships</Link>
-            <Link to="/cities" className="text-white/60 hover:text-white transition-colors text-sm font-light">Promoter Program</Link>
-          </div>
-
-          <div className="flex flex-col gap-3 md:gap-4">
-            <h5 className="text-white font-bold tracking-widest uppercase mb-1 md:mb-2 text-sm">Legal</h5>
-            <Link to="/legal#privacy" className="text-white/60 hover:text-white transition-colors text-sm font-light">Privacy Policy</Link>
-            <Link to="/legal#terms" className="text-white/60 hover:text-white transition-colors text-sm font-light">Terms of Service</Link>
-            <Link to="/contact" className="text-white/60 hover:text-white transition-colors text-sm font-light">Contact Us</Link>
-          </div>
-
         </div>
 
-        <div className="max-w-6xl w-full mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-center md:text-left">
-          <p className="text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-widest text-white/40 uppercase font-medium">© 2026 MARKETPEACE (FOREIGN AFFAIRS LLC). DOWN TO EARTH.</p>
-          <p className="text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-widest text-white/40 uppercase font-medium flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> ALL SYSTEMS OPERATIONAL
+        {/* Navigation Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 sm:gap-x-8 md:gap-x-16 gap-y-6 sm:gap-y-8 md:gap-y-12 text-center items-center justify-center">
+          <Link to="/vendors" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">System Entry</Link>
+          <Link to="/attendees" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Tickets</Link>
+          <Link to="/cities" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Rollout</Link>
+          <Link to="/venues" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Venues</Link>
+          <Link to="/privacy" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Privacy</Link>
+          <Link to="/terms" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Terms</Link>
+          <Link to="/contact" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Contact</Link>
+          <Link to="/legal" className="text-white/40 hover:text-white transition-colors text-[7px] sm:text-[9px] md:text-xs tracking-[0.1em] md:tracking-[0.3em] uppercase font-black">Legal</Link>
+        </div>
+      </div>
+
+      {/* Edge-to-Edge Market Image */}
+      <div className="relative w-full overflow-hidden flex flex-col items-center mt-auto">
+        <img 
+          src="/assets/footer-market.png" 
+          alt="Cloud Market" 
+          loading="lazy"
+          className="w-full md:min-w-[1800px] h-auto object-cover object-bottom select-none pointer-events-none transform translate-y-1 opacity-60 md:opacity-100"
+        />
+        
+        {/* Absolute Bottom Bar */}
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 w-full px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-center md:text-left z-30">
+          <p className="text-[6px] sm:text-[7px] md:text-[9px] tracking-[0.1em] md:tracking-[0.2em] text-white/40 md:text-white/20 uppercase font-bold">© 2026 MARKETPEACE. SECURING CREATOR INDEPENDENCE.</p>
+          <p className="text-[6px] sm:text-[7px] md:text-[9px] tracking-[0.1em] md:tracking-[0.2em] text-white/40 md:text-white/20 uppercase font-bold flex items-center gap-2">
+            PROTOCOL STATUS: SECURE
           </p>
         </div>
       </div>
+
+      {/* Deep Atmospheric Gradient Overlay */}
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
     </footer>
   );
 }

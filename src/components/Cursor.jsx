@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export default function Cursor() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Only enable custom cursor if the device has a mouse/trackpad
@@ -30,6 +30,7 @@ export default function Cursor() {
 
     if (mediaQuery.matches) {
       window.addEventListener('mousemove', updateMousePosition);
+      return () => window.removeEventListener('mousemove', updateMousePosition);
     }
     
     return () => window.removeEventListener('mousemove', updateMousePosition);

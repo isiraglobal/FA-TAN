@@ -1,1 +1,56 @@
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# SECURITY (HIGH-8): Environment files — NEVER commit secrets
+# These files contain API keys, webhook secrets, and credentials
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env*.local
+
+# Logs
+*.log
+npm_output.log
+logs/
+*.log.*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary and scratch files
+scratch/
+temp_legal/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Vercel
+.vercel/

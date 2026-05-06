@@ -21,6 +21,12 @@ export default {
       fontFamily: {
         heading: ['Orbitron', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+      },
+      screens: {
+        'xs': '360px',
+      },
+      spacing: {
+        'safe': 'max(1rem, env(safe-area-inset-left))',
       }
     },
   },
