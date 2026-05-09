@@ -6,6 +6,7 @@ import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy load pages for performance
 const Home = lazy(() => import('./pages/Home'));
@@ -79,11 +80,24 @@ export default function App() {
         <LoadingScreen />
         <ScrollSetup />
         <Cursor />
-        <Suspense fallback={null}>
-          <BackgroundClouds />
-        </Suspense>
+        <ErrorBoundary fallback={
+          // Flat background colour — visually identical to the scene without clouds
+          <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundColor: '#0690d4' }} />
+        }>
+          <Suspense fallback={null}>
+            <BackgroundClouds />
+          </Suspense>
+        </ErrorBoundary>
         <Navbar />
-        <Suspense fallback={<div className="min-h-screen bg-[#061530]" />}>
+        <Suspense fallback={
+          <div className="min-h-screen bg-[#061530] flex items-center justify-center">
+            <div className="flex gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0077b6] animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0077b6] animate-bounce" style={{ animationDelay: '120ms' }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0077b6] animate-bounce" style={{ animationDelay: '240ms' }} />
+            </div>
+          </div>
+        }>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/vendors" element={<Vendors />} />

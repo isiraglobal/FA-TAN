@@ -36,10 +36,11 @@ export default function Navbar() {
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
         className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6 flex items-center justify-between bg-[#061530]/60 backdrop-blur-3xl border-b border-white/5 shadow-2xl"
+        style={{ paddingTop: 'max(0.75rem, env(safe-area-inset-top))' }}
       >
         <div className="flex items-center gap-6 sm:gap-10 md:gap-12">
           <Link to="/" onClick={() => setIsOpen(false)} className="hover:scale-105 transition-transform">
-            <span className="text-lg sm:text-xl md:text-2xl font-black tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-white uppercase italic">MARKETPEACE</span>
+            <h1 className="text-xl sm:text-2xl font-black tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-white uppercase italic">MARKETPEACE</h1>
           </Link>
           <div className="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em] text-white">
             {navLinks.map((link) => (
@@ -51,8 +52,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 md:gap-6">
-          <Link to="/vendors" className="hidden lg:block">
-            <button className="px-6 py-2 bg-white text-[#061530] font-black rounded-lg tracking-[0.2em] text-[10px] uppercase hover:bg-[#0077b6] hover:text-white transition-all shadow-lg btn-glow">
+          <Link to="/vendors">
+            <button className="px-4 sm:px-6 py-2 bg-white text-[#061530] font-black rounded-lg tracking-[0.1em] sm:tracking-[0.2em] text-[8px] sm:text-[10px] uppercase hover:bg-[#0077b6] hover:text-white transition-all shadow-lg btn-glow">
               JOIN
             </button>
           </Link>

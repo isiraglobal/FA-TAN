@@ -147,7 +147,7 @@
       padding: clamp(40px, 8vh, 100px) 1rem 4vh;
       padding-top: 100px;
     }
-    h1 { font-size: 2.5rem !important; }
-    h2 { font-size: 2rem !important; }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
   }
 }

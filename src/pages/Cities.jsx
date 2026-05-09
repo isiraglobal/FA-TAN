@@ -45,7 +45,7 @@ export default function Cities() {
         <span className="text-white bg-[#0077b6] px-4 py-1.5 rounded-full tracking-[0.3em] text-[10px] md:text-xs font-black uppercase mb-12 md:mb-16">
           The Network
         </span>
-        <h1 className="text-2xl sm:text-4xl md:text-8xl font-black tracking-tighter mb-12 md:mb-16 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-12 md:mb-16 text-white leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] uppercase italic">
           System <span className="not-italic text-stroke-blue">Expansion</span>
         </h1>
         <p className="text-white/80 text-sm sm:text-lg md:text-2xl leading-relaxed max-w-3xl font-medium px-4 mb-8 md:mb-12">

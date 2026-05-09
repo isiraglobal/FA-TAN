@@ -19,16 +19,28 @@ const letters = [
 ];
 
 
-const cities = ["New York, NY", "Washington, D.C.", "Atlanta, GA", "Philadelphia, PA", "Miami, FL", "Boston, MA", "Dallas, TX"];
-
 export default function Home() {
-  useEffect(() => {
-    document.title = "MARKETPEACE | Infrastructure of Independence";
-  }, []);
-
+  const [cityNodes, setCityNodes] = useState([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState(null);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    document.title = "MARKETPEACE | Infrastructure of Independence";
+    
+    const fetchCities = async () => {
+      try {
+        const response = await fetch('/api/cities');
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data)) setCityNodes(data);
+        }
+      } catch (err) {
+        console.error("Node sync failed:", err);
+      }
+    };
+    fetchCities();
+  }, []);
 
   const handleQuickCheckout = async ({ type, tier }) => {
     setCheckoutError(null);
@@ -437,12 +449,20 @@ export default function Home() {
           >
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex gap-10 md:gap-24 items-center">
-                <Card title="New York, NY" subtitle="Active Node 01" />
-                <Card title="Washington, D.C." subtitle="Active Node 02" />
-                <Card title="Atlanta, GA" subtitle="Active Node 03" />
-                <Card title="Miami, FL" subtitle="Planned Node" />
-                <Card title="Los Angeles, CA" subtitle="Planned Node" />
-                <Card title="Chicago, IL" subtitle="Expansion" />
+                {cityNodes.length > 0 ? (
+                  cityNodes.map((city, idx) => (
+                    <Card key={`${i}-${idx}`} title={city.name} subtitle={`${city.status} ${city.date}`} />
+                  ))
+                ) : (
+                  <>
+                    <Card title="New York, NY" subtitle="Active Node 01" />
+                    <Card title="Washington, D.C." subtitle="Active Node 02" />
+                    <Card title="Atlanta, GA" subtitle="Active Node 03" />
+                    <Card title="Miami, FL" subtitle="Planned Node" />
+                    <Card title="Los Angeles, CA" subtitle="Planned Node" />
+                    <Card title="Chicago, IL" subtitle="Expansion" />
+                  </>
+                )}
               </div>
             ))}
           </motion.div>

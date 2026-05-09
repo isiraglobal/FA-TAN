@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { Mail, MessageSquare, Send, Instagram, MapPin } from 'lucide-react';
 // SECURITY: submitForm routes through /api/submit (server-side proxy).
 import { submitForm } from '../utils/stripeCheckout';
-import { motion } from 'framer-motion';
-import { Mail, MessageSquare, Send, Instagram, MapPin } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
