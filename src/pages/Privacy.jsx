@@ -29,7 +29,7 @@ export default function Privacy() {
               <li>Contact details (Name, business name, phone number, email address).</li>
               <li>Social media handles (Instagram, TikTok, etc.) to promote your brand.</li>
               <li>Professional information related to your business or creative work.</li>
-              <li>Payment information processed through secure third-party platforms (Venmo, Zelle, CashApp, PayPal).</li>
+              <li>Payment information processed securely via Stripe.</li>
             </ul>
           </section>
 

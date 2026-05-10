@@ -19,6 +19,7 @@ const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Success = lazy(() => import('./pages/Success'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Admin = lazy(() => import('./pages/Admin'));
 const BackgroundClouds = lazy(() => import('./components/BackgroundClouds'));
 
 // Global scroll manager
@@ -28,46 +29,43 @@ function ScrollSetup() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    let active = true;
-    let frameId = null;
     const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
     const shouldUseLenis = !isMobile;
 
-    if (!lenisInstance && shouldUseLenis) {
+    if (shouldUseLenis && !lenisInstance) {
       lenisInstance = new Lenis({
-        duration: 1.2,
+        duration: 1.1,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        smooth: true,
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
         smoothTouch: false,
+        touchMultiplier: 1.5,
       });
 
+      // Global RAF loop for the instance
+      let lastTime = 0;
       function raf(time) {
-        if (!active) return;
-        lenisInstance?.raf(time);
-        frameId = requestAnimationFrame(raf);
+        lenisInstance.raf(time);
+        requestAnimationFrame(raf);
       }
+      requestAnimationFrame(raf);
 
-      frameId = requestAnimationFrame(raf);
+      // Handle dynamic height changes (essential for SPA)
+      const resizeObserver = new ResizeObserver(() => {
+        lenisInstance.resize();
+      });
+      resizeObserver.observe(document.body);
     }
 
-    const timer = setTimeout(() => {
-      window.scrollTo(0, 0);
-      if (lenisInstance) {
-        if (pathname === '/') {
-          lenisInstance.destroy();
-          lenisInstance = null;
-        } else {
-          lenisInstance.scrollTo(0, { immediate: true });
-        }
-      }
-    }, 10);
-
-    return () => {
-      active = false;
-      if (frameId) cancelAnimationFrame(frameId);
-      clearTimeout(timer);
-    };
+    // Reset scroll on path change
+    window.scrollTo(0, 0);
+    if (lenisInstance) {
+      lenisInstance.scrollTo(0, { immediate: true });
+      // Forced resize to ensure new page height is captured
+      setTimeout(() => lenisInstance.resize(), 50);
+      setTimeout(() => lenisInstance.resize(), 500);
+    }
   }, [pathname]);
 
   return null;
@@ -109,6 +107,7 @@ export default function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/success" element={<Success />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<ErrorBoundary><Admin /></ErrorBoundary>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

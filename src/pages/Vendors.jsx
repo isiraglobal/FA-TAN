@@ -12,7 +12,6 @@ export default function Vendors() {
     businessName: '',
     email: '',
     instagram: '',
-    paymentMethod: '',
     tier: 'Standard'
   });
 
@@ -46,7 +45,6 @@ export default function Vendors() {
         businessName: formData.businessName,
         email: formData.email,
         instagram: formData.instagram,
-        paymentMethod: formData.paymentMethod,
         tier: formData.tier,
         // SECURITY: No transactionID or amount sent from client.
         // Server generates ID and determines canonical price from tier.
@@ -63,7 +61,7 @@ export default function Vendors() {
 
       // Redirect to Stripe — success/cancel URLs are set server-side
       window.location.href = url;
-      setFormData({ name: '', businessName: '', email: '', instagram: '', paymentMethod: '', tier: 'Standard' });
+      setFormData({ name: '', businessName: '', email: '', instagram: '', tier: 'Standard' });
     } catch (err) {
       // SECURITY: Only display the user-safe error message — not raw internals
       setStatus({ submitting: false, success: false, error: err.message || 'Failed to process. Please try again.' });
@@ -183,12 +181,7 @@ export default function Vendors() {
                 </button>
               ))}
             </div>
-            <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required className="w-full bg-white/[0.12] border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-white/70 outline-none focus:border-[#0077b6] transition-all appearance-none backdrop-blur-md text-sm">
-              <option value="" disabled className="bg-[#061530]">Preferred Settlement Method</option>
-              <option value="venmo" className="bg-[#061530]">Venmo</option>
-              <option value="zelle" className="bg-[#061530]">Zelle</option>
-              <option value="cashapp" className="bg-[#061530]">CashApp</option>
-            </select>
+
             <div className="flex items-start gap-4 mt-2">
               <input type="checkbox" required id="terms" className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5" />
               <label htmlFor="terms" className="text-[10px] md:text-[11px] text-white/40 leading-relaxed font-light">

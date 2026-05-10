@@ -62,11 +62,7 @@ export default function Home() {
     offset: ['start start', 'end end']
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const smoothProgress = scrollYProgress;
 
   // Stages: 0 (Hero), 1 (About), 2 (How), 3 (Application)
   // Total height 700vh.
@@ -95,17 +91,12 @@ export default function Home() {
   const scaleSection3 = useTransform(smoothProgress, [0.65, 0.75], [0.8, 1]);
 
   return (
-    <div className="w-full md:snap-y md:snap-proximity md:scroll-smooth bg-[#061530]">
+    <div className="w-full bg-[#061530]">
       <div
         ref={containerRef}
         className="relative w-full"
         style={{ minHeight: '600vh' }}
       >
-        {/* Scroll Snap Markers */}
-        <div className="absolute top-0 h-screen w-full snap-start pointer-events-none" />
-        <div className="absolute top-[180vh] h-screen w-full snap-start pointer-events-none" />
-        <div className="absolute top-[330vh] h-screen w-full snap-start pointer-events-none" />
-        <div className="absolute top-[480vh] h-screen w-full snap-start pointer-events-none" />
 
         <div className="h-20 md:h-28 w-full"></div>
 

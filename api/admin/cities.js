@@ -1,4 +1,4 @@
-import { createRateLimiter } from '../_middleware.js';
+import { createRateLimiter, timingSafeEqual } from '../_middleware.js';
 
 const rateLimiter = createRateLimiter({ maxRequests: 50, windowMs: 15 * 60 * 1000 });
 
@@ -8,11 +8,18 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests' });
   }
 
-  // SECURITY: Verify Token
+  // SECURITY: Verify Token with strict equality and timing safety
   const authHeader = req.headers.authorization || '';
+  const headerToken = authHeader.replace(/^Bearer\s+/i, '');
+  
+  // Also check cookie for browser-based requests
+  const cookies = req.headers.cookie || '';
+  const cookieToken = cookies.split(';').find(c => c.trim().startsWith('adminToken='))?.split('=')[1] || '';
+  
+  const token = headerToken || cookieToken;
   const expectedToken = Buffer.from(`${process.env.ADMIN_ID}:${process.env.INTERNAL_WEBHOOK_SECRET}`).toString('base64');
 
-  if (!authHeader.includes(expectedToken)) {
+  if (!token || !timingSafeEqual(token, expectedToken)) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 

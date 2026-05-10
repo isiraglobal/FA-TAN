@@ -14,12 +14,19 @@ export default function Admin() {
 
   useEffect(() => {
     document.title = "MARKETPEACE | Admin Portal";
-    const savedToken = localStorage.getItem('adminToken');
-    if (savedToken) {
-      setToken(savedToken);
-      setIsLoggedIn(true);
-      fetchCities();
-    }
+    // Check if we have a session (we can't read httpOnly cookie, but we can try to fetch)
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/admin/cities');
+        if (response.ok) {
+          setIsLoggedIn(true);
+          fetchCities();
+        }
+      } catch (err) {
+        // Not logged in
+      }
+    };
+    checkAuth();
   }, []);
 
   const handleLogin = async (e) => {
@@ -34,8 +41,7 @@ export default function Admin() {
       });
       const data = await response.json();
       if (response.ok) {
-        setToken(data.token);
-        localStorage.setItem('adminToken', data.token);
+        setToken(data.token); // Still keep in memory for header-based API if needed
         setIsLoggedIn(true);
         fetchCities(data.token);
       } else {
@@ -51,6 +57,7 @@ export default function Admin() {
   const fetchCities = async (authToken = token) => {
     setLoading(true);
     try {
+      // Browser will automatically send the httpOnly cookie
       const response = await fetch('/api/cities');
       if (response.ok) {
         const data = await response.json();
@@ -72,7 +79,8 @@ export default function Admin() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          // Authorization header is optional now as we have cookies
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify({ cities })
       });
@@ -92,10 +100,12 @@ export default function Admin() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    setIsLoggedIn(false);
-    setToken('');
-    setCities([]);
+    // We can't clear httpOnly cookie from JS, but we can call a logout API
+    fetch('/api/admin/logout', { method: 'POST' }).finally(() => {
+      setIsLoggedIn(false);
+      setToken('');
+      setCities([]);
+    });
   };
 
   const addCity = () => {

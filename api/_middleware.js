@@ -61,10 +61,33 @@ export function createRateLimiter({ maxRequests = 10, windowMs = 60000 }) {
 /**
  * Validates that the Content-Type is application/json.
  * CSRF mitigation: simple requests (form submits) cannot set Content-Type to application/json.
- * @param {import('http').IncomingMessage} req
- * @returns {boolean}
  */
 export function requireJsonContentType(req) {
   const ct = req.headers['content-type'] || '';
   return ct.includes('application/json');
+}
+
+/**
+ * Timing-safe string comparison to prevent timing attacks.
+ */
+export function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  
+  let result = 0;
+  for (let i = 0; i < bufA.length; i++) {
+    result |= bufA[i] ^ bufB[i];
+  }
+  return result === 0;
+}
+
+/**
+ * Simple input sanitizer for strings.
+ */
+export function sanitizeInput(val, maxLen = 1000) {
+  if (typeof val !== 'string') return '';
+  return val.trim().slice(0, maxLen).replace(/[<>]/g, ''); // Basic tag removal
 }

@@ -35,7 +35,7 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-black text-white mb-6 uppercase italic title">2. Payments and Deposits</h2>
             <p>
-              All payments are processed through approved digital methods (Venmo, Zelle, CashApp, PayPal). Vendors are responsible for ensuring accurate payment information is provided.
+              All payments are processed securely via Stripe. Vendors are responsible for ensuring accurate payment information is provided.
             </p>
           </section>
 
